@@ -1,0 +1,38 @@
+{
+  "name": "lanchonete",
+  "version": "1.0.0",
+  "description": "Projeto relacionado a especialização em Arquitetura de Software na FIAP",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamG11/lanchonete.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teamG11/lanchonete/issues"
+  },
+  "homepage": "https://github.com/teamG11/lanchonete#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.14",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.18",
+    "@types/helmet": "^4.0.0",
+    "@types/node": "^20.8.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.2.2"
+  }
+}
