@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  lanchonete:
+    build: ./tooling/docker
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      PORT: 7000
+    ports:
+      - 7000:7000
+    command: npm run dev
