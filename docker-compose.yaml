@@ -1,8 +1,10 @@
 version: '3.9'
 
 services:
-  lanchonete:
-    build: ./tooling/docker
+  app:
+    build:
+      context: .
+      dockerfile: tooling/docker/Dockerfile
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -11,3 +13,15 @@ services:
     ports:
       - 7000:7000
     command: npm run dev
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: lanchonete
+    ports:
+      - 5432:5432
+
+networks:
+    default:
+        name: lanchonete-network
