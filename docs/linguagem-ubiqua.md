@@ -1,4 +1,21 @@
+# DICIONÁRIO DE LINGUAGEM UBÍQUA 
+
 Este dicionário apresenta termos comuns usados na linguagem ubíqua relacionada a pedidos e serviços de comida.
+
+## ÍNDICE
+- [DICIONÁRIO DE LINGUAGEM UBÍQUA](#dicionário-de-linguagem-ubíqua)
+  - [ÍNDICE](#índice)
+  - [A](#a)
+  - [B](#b)
+  - [C](#c)
+  - [F](#f)
+  - [L](#l)
+  - [M](#m)
+  - [N](#n)
+  - [P](#p)
+  - [Q](#q)
+  - [S](#s)
+  - [T](#t)
 
 ## A
 
