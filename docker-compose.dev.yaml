@@ -5,14 +5,15 @@ services:
     build:
       context: .
       dockerfile: tooling/docker/Dockerfile
-      target: production
+      target: dev
     volumes:
-      - .:/usr/src/app
+      - ./:/usr/src/app
     environment:
       PORT: 7000
-      NODE_ENV: production
+      NODE_ENV: dev
     ports:
       - 7000:7000
+    command: npm run dev
     depends_on:
       - postgres
 
