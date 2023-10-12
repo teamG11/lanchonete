@@ -12,7 +12,7 @@ services:
       PORT: 7000
     ports:
       - 7000:7000
-    command: npm run dev
+    command: npm run start
     depends_on:
       - postgres
 
