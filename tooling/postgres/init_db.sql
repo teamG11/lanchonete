@@ -3,6 +3,8 @@ CREATE TABLE "cliente" (
     "nome" varchar NOT NULL,
     "sobrenome" varchar,
     "cpf" varchar NOT NULL,
+    "email" varchar NOT NULL,
+    "telefone" varchar NOT NULL,
     "created_at" timestamp DEFAULT (CURRENT_TIMESTAMP),
     "updated_at" timestamp DEFAULT (CURRENT_TIMESTAMP)
 );
