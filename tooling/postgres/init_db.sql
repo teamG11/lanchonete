@@ -15,7 +15,7 @@ CREATE TABLE "pedido" (
     "created_at" timestamp DEFAULT (CURRENT_TIMESTAMP),
     "updated_at" timestamp DEFAULT (CURRENT_TIMESTAMP)
 );
-CREATE TABLE "produto_itens" (
+CREATE TABLE "pedido_itens" (
     "pedido_id" integer NOT NULL,
     "produto_id" integer NOT NULL,
     "quantidade" integer NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE "produto" (
 );
 ALTER TABLE "pedido"
 ADD FOREIGN KEY ("client_id") REFERENCES "cliente" ("id");
-ALTER TABLE "produto_itens"
+ALTER TABLE "pedido_itens"
 ADD FOREIGN KEY ("pedido_id") REFERENCES "pedido" ("id");
-ALTER TABLE "produto_itens"
+ALTER TABLE "pedido_itens"
 ADD FOREIGN KEY ("produto_id") REFERENCES "produto" ("id");
