@@ -2,8 +2,8 @@
 import express from "express";
 import cors from "cors";
 
-import { clienteRouter } from "./routes/clienteRouter";
-import { produtoRouter } from "./routes/produtoRouter";
+import { clienteRouter } from "./adapter/api/routes/ClienteRouter";
+import { produtoRouter } from "./adapter/api/routes/ProdutoRouter";
 
 const app = express();
 
