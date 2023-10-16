@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider      = "prisma-client-js"
+    binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Cliente {
+    id         Int      @id @default(autoincrement())
+    nome       String
+    sobrenome  String?
+    cpf        String   @unique
+    created_at DateTime @default(now())
+    update_at  DateTime @updatedAt
+    pedidos    Pedido[]
+
+    @@map("cliente")
+}
+
+model Produto {
+    id          Int           @id @default(autoincrement())
+    nome        String
+    descricao   String
+    tipo        String
+    valor       Int
+    disponivel  Boolean
+    created_at  DateTime      @default(now())
+    update_at   DateTime      @updatedAt
+    pedidoItens PedidoItens[]
+
+    @@map("produto")
+}
+
+model Pedido {
+    id             Int           @id @default(autoincrement())
+    id_cliente     Int
+    cliente        Cliente       @relation(fields: [id_cliente], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    valor_final    Int
+    tipo_pagamento String
+    status         String
+    created_at     DateTime      @default(now())
+    update_at      DateTime      @updatedAt
+    pedidoItens    PedidoItens[]
+
+    @@map("pedido")
+}
+
+model PedidoItens {
+    id_pedido      Int
+    id_produto     Int
+    pedido         Pedido   @relation(fields: [id_pedido], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    produto        Produto  @relation(fields: [id_produto], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    quantidade     Int
+    valor_unitario Int
+    create_at      DateTime @default(now())
+    update_at      DateTime @updatedAt
+
+    @@unique([id_pedido, id_produto], map: "id_pedido_id_produto_unique")
+    @@map("pedido_itens")
+}
