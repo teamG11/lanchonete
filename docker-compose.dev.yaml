@@ -11,6 +11,7 @@ services:
     environment:
       PORT: 7000
       NODE_ENV: dev
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lanchonete?schema=public
     ports:
       - 7000:7000
     command: npm run dev
@@ -26,8 +27,6 @@ services:
       POSTGRES_DB: lanchonete
     ports:
       - 5432:5432
-    volumes:
-      - ./tooling/postgres/init_db.sql:/docker-entrypoint-initdb.d/init.sql
 
 networks:
     default:

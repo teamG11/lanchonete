@@ -1,14 +1,24 @@
-import { Cliente } from "@/core/domain/cliente/Cliente";
 import { ClienteRepository } from "@/core/domain/cliente/ClienteRepository";
+import { prisma } from "@/lib/prisma";
+import { Cliente, Prisma } from "@prisma/client";
 
 export default class ImplClienteRepository implements ClienteRepository {
-    save(_Cliente: Cliente): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    update(_Cliente: Cliente): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    findByCpf(_id: string): Promise<Cliente> {
-        throw new Error("Method not implemented.");
-    }
+	async save(data: Prisma.ClienteCreateInput): Promise<Cliente> {
+		const cliente = prisma.cliente.create({
+			data: data
+		});
+
+		return cliente;
+	}
+
+	async findByCPF(cpf: string): Promise<Cliente | null> {
+		const cliente = prisma.cliente.findUnique({
+			where: {
+				cpf
+			}
+		});
+
+		return cliente;
+	}
 }
+
