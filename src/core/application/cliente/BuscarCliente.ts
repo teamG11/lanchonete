@@ -14,6 +14,13 @@ export class BuscarCliente {
 
     async executar(dados: BuscarClienteDados): Promise<Cliente> {
         const { cpf } = dados;
-        return await this.clienteRepository.findByCpf(cpf);
+
+        const cliente = await this.clienteRepository.findByCPF(cpf);
+
+        if (!cliente) {
+            throw new Error("Cliente não encontrado");
+        }
+
+        return cliente;
     }
 }

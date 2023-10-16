@@ -1,3 +1,4 @@
+import { Cliente } from "@/core/domain/cliente/Cliente";
 import { ClienteRepository } from "@/core/domain/cliente/ClienteRepository";
 
 interface RegisterUseCaseParams {
@@ -16,10 +17,12 @@ export class CriarCliente {
 			throw new Error("CPF já cadastrado");
 		}
 
-		await this.clienteRepository.save({
-			nome,
-			sobrenome,
-			cpf
-		});
+		if (!sobrenome)	{
+			sobrenome = "";
+		}
+
+		const cliente = new Cliente(nome, sobrenome, cpf);
+
+		await this.clienteRepository.save(cliente);
 	}
 }
