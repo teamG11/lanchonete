@@ -11,6 +11,7 @@ services:
     environment:
       PORT: 7000
       NODE_ENV: dev
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lanchonete?schema=public
     ports:
       - 7000:7000
     command: npm run dev
