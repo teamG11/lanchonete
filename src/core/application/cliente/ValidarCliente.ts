@@ -12,7 +12,7 @@ export class ValidarCliente {
 		this.clienteRepository = clienteRepository;
 	}
 
-	async executar({ cpf }: ValidarClienteDados): Promise<Cliente | null> {
+	async executar({ cpf }: ValidarClienteDados): Promise<Cliente> {
 		const cliente = await this.clienteRepository.findByCPF(cpf);
 
 		if (!cliente) {
