@@ -1,8 +1,9 @@
+import { Cliente } from "@/core/domain/cliente/Cliente";
 import { ClienteRepository } from "@/core/domain/cliente/ClienteRepository";
 
-interface RegisterUseCaseParams {
+interface CriarClienteDados {
 	nome: string;
-	sobrenome?: string;
+	sobrenome?: string | null;
 	cpf: string;
 }
 
@@ -10,16 +11,15 @@ export class CriarCliente {
 
 	constructor(private clienteRepository: ClienteRepository) { }
 
-	async criar({ nome, sobrenome, cpf }: RegisterUseCaseParams) {
+	async executar({ nome, sobrenome, cpf }: CriarClienteDados) {
 		const clienteComMesmoCPF = await this.clienteRepository.findByCPF(cpf);
 		if (clienteComMesmoCPF) {
 			throw new Error("CPF já cadastrado");
 		}
 
-		await this.clienteRepository.save({
-			nome,
-			sobrenome,
-			cpf
-		});
+		sobrenome = sobrenome || null;
+
+		const cliente = new Cliente({ nome, sobrenome, cpf });
+		this.clienteRepository.save(cliente);
 	}
 }

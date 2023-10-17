@@ -1,6 +1,6 @@
-import { Cliente, Prisma } from '@prisma/client';
+import { Cliente } from "./Cliente";
 
 export interface ClienteRepository {
-	save(cliente: Prisma.ClienteCreateInput): Promise<Cliente>;
+	save(cliente: Cliente): Promise<void>;
 	findByCPF(cpf: string): Promise<Cliente | null>;
 }
