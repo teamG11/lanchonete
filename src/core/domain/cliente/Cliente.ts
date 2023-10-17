@@ -1,11 +1,17 @@
-export class Cliente{
-    nome: string;
-    sobrenome: string | null;
-    cpf: string;
+export type ClienteType = {
+	nome: string;
+	sobrenome: string | null;
+	cpf: string;
+}
 
-    constructor(nome: string, sobrenome: string | null, cpf: string){
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.cpf = cpf;
-    }
+export class Cliente {
+	nome: string;
+	sobrenome: string | null;
+	cpf: string;
+
+	constructor({ nome, sobrenome = null, cpf }: ClienteType) {
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.cpf = cpf;
+	}
 }
