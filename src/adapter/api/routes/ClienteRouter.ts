@@ -5,8 +5,7 @@ const clienteRouter = Router();
 
 const clienteController = new ClienteController();
 
-clienteRouter.get("/:idCliente", clienteController.obterPorId);
-clienteRouter.get("/", clienteController.obterTodos);
 clienteRouter.post("", clienteController.incluir);
+clienteRouter.get("/validar/:cpf", clienteController.validar);
 
 export { clienteRouter };
