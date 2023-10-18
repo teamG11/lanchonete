@@ -1,12 +1,12 @@
 import ClienteRepository from "@/adapter/infrastructure/Repositories/ClienteRepository";
 import { CriaCliente } from "@/core/application/cliente/CriaCliente";
-import { ValidaCliente } from "@/core/application/cliente/ValidaCliente";
+import { BuscaCliente } from "@/core/application/cliente/BuscaCliente";
 import { Request, Response } from "express";
-import { z } from "zod";
+import { ZodError, z } from "zod";
 
 class ClienteController {
 
-	async incluir(request: Request, response: Response) {
+	async criar(request: Request, response: Response) {
 		const dados = request.body;
 
 		const createBodySchema = z.object({
@@ -15,13 +15,15 @@ class ClienteController {
 			cpf: z.string().min(11).max(11),
 		});
 
-		const { nome, sobrenome, cpf } = createBodySchema.parse(dados);
-
 		try {
+			const { nome, sobrenome, cpf } = createBodySchema.parse(dados);
 			const clienteRepository = new ClienteRepository();
 			const criarCliente = new CriaCliente(clienteRepository);
 			await criarCliente.executarAsync({ nome, sobrenome, cpf });
 		} catch (error) {
+			if (error instanceof ZodError) {
+				return response.status(400).json(error.issues);
+			}
 			if (error instanceof Error) {
 				return response.status(409).send(error.message);
 			}
@@ -32,22 +34,22 @@ class ClienteController {
 		return response.status(201).send();
 	}
 
-	async validar(request: Request, response: Response) {
-		console.log(request);
+	async buscar(request: Request, response: Response) {
 
 		const paramsSchema = z.object({
 			cpf: z.string().min(11).max(11),
 		});
-
-		const { cpf } = paramsSchema.parse(request.params);
-
+		
 		try {
+			const { cpf } = paramsSchema.parse(request.params);
 			const clienteRepository = new ClienteRepository();
-			const validarCliente = new ValidaCliente(clienteRepository);
-
-			const cliente = await validarCliente.executarAsync({ cpf });
+			const buscarCliente = new BuscaCliente(clienteRepository);
+			const cliente = await buscarCliente.executarAsync({ cpf });
 			return response.status(200).json(cliente);
 		} catch (error) {
+			if (error instanceof ZodError) {
+				return response.status(400).json(error.issues);
+			}
 			if (error instanceof Error) {
 				return response.status(409).send(error.message);
 			}

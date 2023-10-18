@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "d714d55e-1b45-4797-8bd1-799c43500c74",
+		"name": "lanchonete",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25625342"
+	},
+	"item": [
+		{
+			"name": "CriarCliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\":\"NomeTeste\",\n    \"cpf\":\"12345678909\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7000/cliente/criar",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"cliente",
+						"criar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BuscarCliente",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7000/cliente/buscar/12345678909",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"cliente",
+						"buscar",
+						"12345678909"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

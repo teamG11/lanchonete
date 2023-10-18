@@ -1,18 +1,18 @@
 import { Cliente } from "@/core/domain/Entities/Cliente";
 import { IClienteRepository } from "@/core/domain/Repositories/IClienteRepository";
 
-interface ValidaClienteDados {
+interface BuscaClienteDados {
 	cpf: string;
 }
 
-export class ValidaCliente {
+export class BuscaCliente {
 	private clienteRepository: IClienteRepository;
 
 	constructor(clienteRepository: IClienteRepository) {
 		this.clienteRepository = clienteRepository;
 	}
 
-	async executarAsync({ cpf }: ValidaClienteDados): Promise<Cliente> {
+	async executarAsync({ cpf }: BuscaClienteDados): Promise<Cliente> {
 		const cliente = await this.clienteRepository.findByCPFAsync(cpf);
 
 		if (!cliente) {
