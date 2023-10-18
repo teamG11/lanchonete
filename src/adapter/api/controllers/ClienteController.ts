@@ -1,6 +1,6 @@
-import ImplClienteRepository from "@/adapter/infrastructure/ImplClienteRepository";
-import { CriarCliente } from "@/core/application/cliente/CriarCliente";
-import { ValidarCliente } from "@/core/application/cliente/ValidarCliente";
+import ClienteRepository from "@/adapter/infrastructure/Repositories/ClienteRepository";
+import { CriaCliente } from "@/core/application/cliente/CriaCliente";
+import { ValidaCliente } from "@/core/application/cliente/ValidaCliente";
 import { Request, Response } from "express";
 import { z } from "zod";
 
@@ -18,9 +18,9 @@ class ClienteController {
 		const { nome, sobrenome, cpf } = createBodySchema.parse(dados);
 
 		try {
-			const clienteRepository = new ImplClienteRepository();
-			const criarCliente = new CriarCliente(clienteRepository);
-			await criarCliente.executar({ nome, sobrenome, cpf });
+			const clienteRepository = new ClienteRepository();
+			const criarCliente = new CriaCliente(clienteRepository);
+			await criarCliente.executarAsync({ nome, sobrenome, cpf });
 		} catch (error) {
 			if (error instanceof Error) {
 				return response.status(409).send(error.message);
@@ -42,10 +42,10 @@ class ClienteController {
 		const { cpf } = paramsSchema.parse(request.params);
 
 		try {
-			const clienteRepository = new ImplClienteRepository();
-			const validarCliente = new ValidarCliente(clienteRepository);
+			const clienteRepository = new ClienteRepository();
+			const validarCliente = new ValidaCliente(clienteRepository);
 
-			const cliente = await validarCliente.executar({ cpf });
+			const cliente = await validarCliente.executarAsync({ cpf });
 			return response.status(200).json(cliente);
 		} catch (error) {
 			if (error instanceof Error) {
