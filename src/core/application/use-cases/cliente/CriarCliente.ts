@@ -1,5 +1,6 @@
 import { Cliente } from "@/core/domain/cliente/Cliente";
 import { ClienteRepository } from "@/core/domain/cliente/ClienteRepository";
+import { CPFCadastradoError } from "../../errors/CPFCadastradoError";
 
 interface CriarClienteDados {
 	nome: string;
@@ -14,7 +15,7 @@ export class CriarCliente {
 	async executar({ nome, sobrenome, cpf }: CriarClienteDados) {
 		const clienteComMesmoCPF = await this.clienteRepository.findByCPF(cpf);
 		if (clienteComMesmoCPF) {
-			throw new Error("CPF já cadastrado");
+			throw new CPFCadastradoError();
 		}
 
 		sobrenome = sobrenome || null;

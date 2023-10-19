@@ -1,5 +1,6 @@
 import { Cliente } from "@/core/domain/cliente/Cliente";
 import { ClienteRepository } from "@/core/domain/cliente/ClienteRepository";
+import { ClienteNaoEncontradoError } from "../../errors/ClienteNaoEncontradoError";
 
 interface ValidarClienteDados {
 	cpf: string;
@@ -16,7 +17,7 @@ export class ValidarCliente {
 		const cliente = await this.clienteRepository.findByCPF(cpf);
 
 		if (!cliente) {
-			throw new Error("Cliente não encontrado");
+			throw new ClienteNaoEncontradoError();
 		}
 
 		return cliente;
