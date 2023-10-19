@@ -1,14 +1,22 @@
-import { Produto } from "@/core/domain/Entities/Produto";
+import { Produto as ProdutoDomain} from "@/core/domain/Entities/Produto";
 import { IProdutoRepository } from "@/core/domain/Repositories/IProdutoRepository";
+import { prisma } from "@/lib/prisma";
 
 export default class ProdutoRepository implements IProdutoRepository {
-    saveAsync(_Produto: Produto): Promise<Produto> {
+    async saveAsync(data: ProdutoDomain): Promise<void> {
+		const produto = prisma.produto.create({
+			data
+		});
+		await produto;
+	}
+
+    updateAsync(_Produto: ProdutoDomain): Promise<ProdutoDomain> {
         throw new Error("Method not implemented.");
     }
-    updateAsync(_Produto: Produto): Promise<Produto> {
+    findByIdAsync(_id: string): Promise<ProdutoDomain> {
         throw new Error("Method not implemented.");
     }
-    findByIdAsync(_id: string): Promise<Produto> {
+    findByNomeAsync(_nome: string): Promise<ProdutoDomain> {
         throw new Error("Method not implemented.");
     }
 }
