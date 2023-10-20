@@ -1,5 +1,6 @@
 import { Cliente } from "@/core/domain/Entities/Cliente";
 import { IClienteRepository } from "@/core/domain/Repositories/IClienteRepository";
+import { ClienteNaoEncontradoError } from "../../errors/ClienteNaoEncontradoError";
 
 interface BuscaClienteDados {
 	cpf: string;
@@ -16,7 +17,7 @@ export class BuscaCliente {
 		const cliente = await this.clienteRepository.findByCPFAsync(cpf);
 
 		if (!cliente) {
-			throw new Error("Cliente não encontrado");
+			throw new ClienteNaoEncontradoError();
 		}
 
 		return cliente;
