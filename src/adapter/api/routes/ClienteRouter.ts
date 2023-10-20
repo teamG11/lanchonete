@@ -3,7 +3,9 @@ import { ClienteController } from "../controllers/ClienteController";
 
 const clienteRouter = Router();
 
-clienteRouter.post("", new ClienteController().incluir);
-clienteRouter.get("/validar/:cpf", new ClienteController().validar);
+const clienteController = new ClienteController();
+
+clienteRouter.post("/criar", clienteController.criar);
+clienteRouter.get("/buscar/:cpf", clienteController.buscar);
 
 export { clienteRouter };
