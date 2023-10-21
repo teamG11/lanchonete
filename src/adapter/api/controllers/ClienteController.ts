@@ -20,6 +20,8 @@ class ClienteController {
 
 			const criarCliente = new CriaCliente(new ClienteRepository());
 			await criarCliente.executarAsync({ nome, sobrenome, cpf });
+
+			return response.status(201).send();
 		} catch (error) {
 			next(error);
 		}
