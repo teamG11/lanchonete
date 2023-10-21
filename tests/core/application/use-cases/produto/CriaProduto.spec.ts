@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ProdutoTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ProdutoTestRepository';
-import { CriaProduto } from './CriaProduto';
-import { ProdutoDuplicadoError } from '../../errors/ProdutoDuplicadoError';
+import { CriaProduto } from '../../../../../src/core/application/use-cases/produto/CriaProduto';
+import { ProdutoDuplicadoError } from '../../../../../src/core/application/errors/ProdutoDuplicadoError';
 import { Produto } from '@/core/domain/Entities/Produto';
 import { TipoProduto } from '@/core/domain/Enums/TipoProduto';
 

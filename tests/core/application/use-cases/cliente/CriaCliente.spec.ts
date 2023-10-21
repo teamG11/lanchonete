@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { CriaCliente } from './CriaCliente';
+import { CriaCliente } from '../../../../../src/core/application/use-cases/cliente/CriaCliente';
 import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
-import { CPFCadastradoError } from '../../errors/CPFCadastradoError';
+import { CPFCadastradoError } from '../../../../../src/core/application/errors/CPFCadastradoError';
 
 let clienteRepository: ClienteTestRepository;
 let useCase: CriaCliente;

@@ -24,8 +24,9 @@ export class CriaCliente {
 
 		sobrenome = sobrenome || null;
 
-		const cliente = new Cliente({ nome, sobrenome, cpf });
-		this.clienteRepository.saveAsync(cliente);
+		const cliente = await this.clienteRepository.saveAsync(
+			new Cliente({ nome, sobrenome, cpf })
+		);
 
 		return { cliente };
 	}

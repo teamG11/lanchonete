@@ -23,8 +23,9 @@ export class CriaProduto {
 			throw new ProdutoDuplicadoError();
 		}
 
-        const produto = new Produto({ nome, descricao, tipo, valor, disponivel });
-		this.produtoRepository.saveAsync(produto);
+		const produto = await this.produtoRepository.saveAsync(
+			new Produto({ nome, descricao, tipo, valor, disponivel })
+		);
 
 		return { produto };
     }
