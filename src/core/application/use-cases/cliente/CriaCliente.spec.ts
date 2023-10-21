@@ -1,12 +1,18 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { CriaCliente } from './CriaCliente';
 import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
 import { CPFCadastradoError } from '../../errors/CPFCadastradoError';
 
-describe('CriaCliente use case', () => {
-	it('Deve permitir cadastrar cliente', async () => {
-		const useCase = new CriaCliente(new ClienteTestRepository());
+let clienteRepository: ClienteTestRepository;
+let useCase: CriaCliente;
 
+describe('CriaCliente use case', () => {
+	beforeEach(() => {
+		clienteRepository = new ClienteTestRepository();
+		useCase = new CriaCliente(clienteRepository);
+	})
+
+	it('Deve permitir cadastrar cliente', async () => {
 		const cliente = {
 			nome: 'John',
 			cpf: '12345678901',
@@ -20,8 +26,6 @@ describe('CriaCliente use case', () => {
 	})
 
 	it('Não deve permitir CPF duplicado', async () => {
-		const useCase = new CriaCliente(new ClienteTestRepository());
-
 		const cliente = {
 			nome: 'John',
 			sobrenome: 'Doe',

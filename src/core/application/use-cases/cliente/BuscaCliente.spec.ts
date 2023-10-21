@@ -1,13 +1,18 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
 import { BuscaCliente } from './BuscaCliente';
 import { ClienteNaoEncontradoError } from '../../errors/ClienteNaoEncontradoError';
 
-describe('BuscaCliente use case', () => {
-	it('Deve encontrar cliente cadastrado', async () => {
-		const clienteRepository = new ClienteTestRepository();
-		const useCase = new BuscaCliente(clienteRepository);
+let clienteRepository: ClienteTestRepository;
+let useCase: BuscaCliente;
 
+describe('BuscaCliente use case', () => {
+	beforeEach(() => {
+		clienteRepository = new ClienteTestRepository();
+		useCase = new BuscaCliente(clienteRepository);
+	})
+
+	it('Deve encontrar cliente cadastrado', async () => {
 		const cliente = {
 			nome: 'John',
 			sobrenome: 'Doe',
@@ -23,8 +28,6 @@ describe('BuscaCliente use case', () => {
 	})
 
 	it('Não deve encontrar cliente cadastrado', async () => {
-		const useCase = new BuscaCliente(new ClienteTestRepository());
-
 		await expect(() => useCase.executarAsync({cpf: "123"})).rejects.toBeInstanceOf(ClienteNaoEncontradoError)
 	})
 })
