@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CriaCliente } from '../../../../../src/core/application/use-cases/cliente/CriaCliente';
 import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
-import { CPFCadastradoError } from '../../../../../src/core/application/errors/CPFCadastradoError';
+import { RegistroDuplicadoError } from '@/core/application/errors/RegistroDuplicadoError';
 
 let clienteRepository: ClienteTestRepository;
 let useCase: CriaCliente;
@@ -33,6 +33,6 @@ describe('CriaCliente use case', () => {
 		};
 
 		await useCase.executarAsync(cliente);
-		await expect(() => useCase.executarAsync(cliente)).rejects.toBeInstanceOf(CPFCadastradoError);
+		await expect(() => useCase.executarAsync(cliente)).rejects.toBeInstanceOf(RegistroDuplicadoError);
 	})
 })

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
 import { BuscaCliente } from '../../../../../src/core/application/use-cases/cliente/BuscaCliente';
-import { ClienteNaoEncontradoError } from '../../../../../src/core/application/errors/ClienteNaoEncontradoError';
+import { RegistroNaoEncontradoError } from '../../../../../src/core/application/errors/RegistroNaoEncontradoError';
 
 let clienteRepository: ClienteTestRepository;
 let useCase: BuscaCliente;
@@ -28,6 +28,6 @@ describe('BuscaCliente use case', () => {
 	})
 
 	it('Não deve encontrar cliente cadastrado', async () => {
-		await expect(() => useCase.executarAsync({cpf: "123"})).rejects.toBeInstanceOf(ClienteNaoEncontradoError)
+		await expect(() => useCase.executarAsync({cpf: "123"})).rejects.toBeInstanceOf(RegistroNaoEncontradoError)
 	})
 })

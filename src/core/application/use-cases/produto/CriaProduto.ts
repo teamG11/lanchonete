@@ -1,6 +1,6 @@
 import { Produto } from "@/core/domain/Entities/Produto";
 import { IProdutoRepository } from "@/core/domain/Repositories/IProdutoRepository";
-import { ProdutoDuplicadoError } from "../../errors/ProdutoDuplicadoError";
+import { RegistroDuplicadoError } from "../../errors/RegistroDuplicadoError";
 
 interface CriaProdutosRequest {
     nome: string;
@@ -20,7 +20,7 @@ export class CriaProduto {
     async executarAsync({ nome, descricao, tipo, valor, disponivel} : CriaProdutosRequest): Promise<CriaProdutoRespose> {
 		const produtoComMesmoNome = await this.produtoRepository.findByNomeAsync(nome);
 		if (produtoComMesmoNome) {
-			throw new ProdutoDuplicadoError();
+			throw new RegistroDuplicadoError();
 		}
 
 		const produto = await this.produtoRepository.saveAsync(
