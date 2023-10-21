@@ -11,7 +11,10 @@
     "start": "node build/server.js",
     "build": "tsup src --out-dir build",
     "bd": "npx prisma migrate deploy",
-	"bd:dev": "npx prisma migrate dev"
+    "bd:dev": "npx prisma migrate dev",
+	"test": "vitest run",
+	"test:watch": "vitest",
+	"docker": "docker compose -f docker-compose.dev.yaml up --build --force-recreate"
   },
   "repository": {
     "type": "git",
@@ -41,6 +44,8 @@
     "prisma": "5.4.2",
     "tsup": "7.2.0",
     "tsx": "3.13.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "vite-tsconfig-paths": "4.2.1",
+    "vitest": "0.34.6"
   }
 }

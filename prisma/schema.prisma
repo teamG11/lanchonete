@@ -17,7 +17,7 @@ model Cliente {
     sobrenome  String?
     cpf        String   @unique
     created_at DateTime @default(now())
-    update_at  DateTime @updatedAt
+    updated_at DateTime @default(now()) @updatedAt
     pedidos    Pedido[]
 
     @@map("cliente")
@@ -31,7 +31,7 @@ model Produto {
     valor       Int
     disponivel  Boolean
     created_at  DateTime      @default(now())
-    update_at   DateTime      @updatedAt
+    updated_at  DateTime      @default(now()) @updatedAt
     pedidoItens PedidoItens[]
 
     @@map("produto")
@@ -45,7 +45,7 @@ model Pedido {
     tipo_pagamento String
     status         String
     created_at     DateTime      @default(now())
-    update_at      DateTime      @updatedAt
+    updated_at     DateTime      @default(now()) @updatedAt
     pedidoItens    PedidoItens[]
 
     @@map("pedido")
@@ -58,8 +58,8 @@ model PedidoItens {
     produto        Produto  @relation(fields: [id_produto], references: [id], onDelete: NoAction, onUpdate: NoAction)
     quantidade     Int
     valor_unitario Int
-    create_at      DateTime @default(now())
-    update_at      DateTime @updatedAt
+    created_at     DateTime @default(now())
+    updated_at     DateTime @default(now()) @updatedAt
 
     @@unique([id_pedido, id_produto], map: "id_pedido_id_produto_unique")
     @@map("pedido_itens")
