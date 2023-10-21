@@ -1,26 +1,33 @@
 import { Cliente } from "@/core/domain/Entities/Cliente";
 import { IClienteRepository } from "@/core/domain/Repositories/IClienteRepository";
-import { CPFCadastradoError } from "../../errors/CPFCadastradoError";
-import { CriaClienteDados, ICriaClienteUseCase } from "../../interfaces/use-cases/Clientes/ICriaClienteUseCase";
-import ClienteRepository from "@/adapter/infrastructure/Repositories/ClienteRepository";
+import { RegistroDuplicadoError } from "../../errors/RegistroDuplicadoError";
 
+interface CriaClienteRequest {
+	nome: string;
+	sobrenome?: string | null;
+	cpf: string;
+}
 
-export class CriaClienteUseCase implements ICriaClienteUseCase{
-	private readonly clienteRepository: IClienteRepository
+interface CriaClienteResponse {
+	cliente: Cliente
+}
 
-	constructor() {
-		this.clienteRepository = new ClienteRepository();
-	 }
+export class CriaClienteUseCase {
 
-	async executarAsync({ nome, sobrenome, cpf }: CriaClienteDados) {
+	constructor(private clienteRepository: IClienteRepository) { }
+
+	async executarAsync({ nome, sobrenome, cpf }: CriaClienteRequest): Promise<CriaClienteResponse> {
 		const clienteComMesmoCPF = await this.clienteRepository.findByCPFAsync(cpf);
 		if (clienteComMesmoCPF) {
-			throw new CPFCadastradoError();
+			throw new RegistroDuplicadoError();
 		}
 
 		sobrenome = sobrenome || null;
 
-		const cliente = new Cliente({ nome, sobrenome, cpf });
-		this.clienteRepository.saveAsync(cliente);
+		const cliente = await this.clienteRepository.saveAsync(
+			new Cliente({ nome, sobrenome, cpf })
+		);
+
+		return { cliente };
 	}
 }
