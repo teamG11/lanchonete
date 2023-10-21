@@ -1,0 +1,30 @@
+import { describe, expect, it } from 'vitest';
+import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
+import { BuscaCliente } from './BuscaCliente';
+import { ClienteNaoEncontradoError } from '../../errors/ClienteNaoEncontradoError';
+
+describe('BuscaCliente use case', () => {
+	it('Deve encontrar cliente cadastrado', async () => {
+		const clienteRepository = new ClienteTestRepository();
+		const useCase = new BuscaCliente(clienteRepository);
+
+		const cliente = {
+			nome: 'John',
+			sobrenome: 'Doe',
+			cpf: '12345678901',
+		};
+
+		await clienteRepository.saveAsync(cliente);
+
+		const { cliente: clienteResponse } = await useCase.executarAsync({cpf: cliente.cpf});
+
+		expect(clienteResponse.nome).toBe(cliente.nome);
+		expect(clienteResponse.sobrenome).toBe(cliente.sobrenome);
+	})
+
+	it('Não deve encontrar cliente cadastrado', async () => {
+		const useCase = new BuscaCliente(new ClienteTestRepository());
+
+		await expect(() => useCase.executarAsync({cpf: "123"})).rejects.toBeInstanceOf(ClienteNaoEncontradoError)
+	})
+})
