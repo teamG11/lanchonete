@@ -1,5 +1,3 @@
-import { TipoProduto } from "../Enums/TipoProduto";
-
 export class Produto {
     id?: number;
     nome: string;
