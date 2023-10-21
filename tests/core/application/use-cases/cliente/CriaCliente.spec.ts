@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { CriaCliente } from '../../../../../src/core/application/use-cases/cliente/CriaCliente';
+import { CriaCliente } from '@/core/application/use-cases/cliente/CriaCliente';
 import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
 import { RegistroDuplicadoError } from '@/core/application/errors/RegistroDuplicadoError';
 

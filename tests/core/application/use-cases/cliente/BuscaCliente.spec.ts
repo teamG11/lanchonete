@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
-import { BuscaCliente } from '../../../../../src/core/application/use-cases/cliente/BuscaCliente';
-import { RegistroNaoEncontradoError } from '../../../../../src/core/application/errors/RegistroNaoEncontradoError';
+import { BuscaCliente } from '@/core/application/use-cases/cliente/BuscaCliente';
+import { RegistroNaoEncontradoError } from '@/core/application/errors/RegistroNaoEncontradoError';
 
 let clienteRepository: ClienteTestRepository;
 let useCase: BuscaCliente;
