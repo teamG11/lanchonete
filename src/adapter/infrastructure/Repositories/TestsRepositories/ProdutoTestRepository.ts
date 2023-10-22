@@ -2,6 +2,7 @@ import { Produto } from "@/core/domain/Entities/Produto";
 import { IProdutoRepository } from "@/core/domain/Repositories/IProdutoRepository";
 
 export class ProdutoTestRepository implements IProdutoRepository {
+
 	public produtos: Produto[] = [];
 
 	async findByNomeAsync(nome: string) {
@@ -26,8 +27,13 @@ export class ProdutoTestRepository implements IProdutoRepository {
 		throw new Error("Method not implemented.");
 	}
 
-	findByIdAsync(id: string): Promise<Produto | null> {
+	findByIdAsync(id: number): Promise<Produto> {
 		throw new Error("Method not implemented.");
 	}
-
+	findAllAsync(): Promise<Produto[]> {
+		throw new Error("Method not implemented.");
+	}
+	remove(id: number): Promise<void> {
+		throw new Error("Method not implemented.");
+	}
 }

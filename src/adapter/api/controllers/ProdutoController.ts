@@ -1,6 +1,8 @@
 import { BuscaTodosProdutosFactory } from "@/core/application/factories/use-cases/produtos/BuscaProdutoFactory";
+import { BuscaProdutoParaEdicaoFactory } from "@/core/application/factories/use-cases/produtos/BuscaProdutoParaEdicaoFactory";
 import { CriaProdutoFactory } from "@/core/application/factories/use-cases/produtos/CriaProdutoFactory";
 import { RemoveProdutoFactory } from "@/core/application/factories/use-cases/produtos/RemoveProdutoFactory";
+import { IBuscaProdutoParaEdicaoUseCase } from "@/core/application/interfaces/use-cases/produtos/IBuscaProdutoParaEdicaoUseCase";
 import { IBuscaTodosProdutosUseCase } from "@/core/application/interfaces/use-cases/produtos/IBuscaTodosProdutosUseCase";
 import { ICriaProdutoUseCase } from "@/core/application/interfaces/use-cases/produtos/ICriarProdutoUseCase";
 import { IRemoveProdutoUseCase } from "@/core/application/interfaces/use-cases/produtos/IRemoveProdutoUseCase";
@@ -13,11 +15,13 @@ class ProdutoController {
 	private readonly criaProdutoUseCase: ICriaProdutoUseCase;
 	private readonly buscaTodosProdutosUseCase: IBuscaTodosProdutosUseCase;
 	private readonly removeProdutoUseCase: IRemoveProdutoUseCase;
+	private readonly buscaProdutoEdicaoUseCase: IBuscaProdutoParaEdicaoUseCase;
 
 	constructor(){
 		this.criaProdutoUseCase = CriaProdutoFactory();
 		this.buscaTodosProdutosUseCase = BuscaTodosProdutosFactory();
 		this.removeProdutoUseCase = RemoveProdutoFactory();
+		this.buscaProdutoEdicaoUseCase = BuscaProdutoParaEdicaoFactory();
 	}
 
 	async incluir(request: Request, response: Response, next: NextFunction) {
@@ -41,7 +45,12 @@ class ProdutoController {
 	}
 
 	async obterPorId(request: Request, response: Response) {
-		return response.status(500);
+		const { id } = request.params;
+		const produto = this.buscaProdutoEdicaoUseCase.executarAsync(Number(id));
+		
+		return response.status(200).json([
+			produto
+		]);
 	}
 
 	async obterTodos(response: Response) {

@@ -3,8 +3,15 @@ import { IProdutoRepository } from "@/core/domain/Repositories/IProdutoRepositor
 import { prisma } from "@/lib/prisma";
 
 export default class ProdutoRepository implements IProdutoRepository {
-	findByIdAsync(id: string): Promise<Produto> {
-		throw new Error("Method not implemented.");
+
+    async findByIdAsync(id: number): Promise<Produto | null> {
+        const produto = await prisma.produto.findFirst({
+            where: {
+                id
+            }
+        });
+
+        return produto;
 	}
     
     async saveAsync(data: Produto): Promise<Produto> {
@@ -15,7 +22,7 @@ export default class ProdutoRepository implements IProdutoRepository {
 	}
 
 	async findByNomeAsync(nome: string): Promise<Produto | null> {
-		const produto = prisma.produto.findFirst({
+		const produto = await prisma.produto.findFirst({
 			where: {
 				nome
 			}
@@ -27,8 +34,8 @@ export default class ProdutoRepository implements IProdutoRepository {
     updateAsync(data: Produto): Promise<Produto> {
         throw new Error("Method not implemented.");
     }
-    findAllAsync(): Promise<Produto[]> {
-        const produto = prisma.produto.findMany();
+    async findAllAsync(): Promise<Produto[]> {
+        const produto = await prisma.produto.findMany();
         return produto;
     }
 
