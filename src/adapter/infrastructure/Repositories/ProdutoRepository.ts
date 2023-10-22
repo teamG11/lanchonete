@@ -38,7 +38,7 @@ export default class ProdutoRepository implements IProdutoRepository {
 			data: {
 				nome: data.nome,
 				descricao: data.descricao,
-				tipo: data.tipo,
+				categoria: data.categoria,
 				valor: data.valor,
 				disponivel: data.disponivel
 			}
@@ -60,7 +60,7 @@ export default class ProdutoRepository implements IProdutoRepository {
 	async findByCategoriaAsync(categoria: string): Promise<Produto[]> {
 		const produto = await prisma.produto.findMany({
 			where: {
-				tipo: categoria
+				categoria: categoria
 			}
 		});
 
