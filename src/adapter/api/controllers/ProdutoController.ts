@@ -1,5 +1,4 @@
-import ProdutoRepository from "@/adapter/infrastructure/Repositories/ProdutoRepository";
-import { CriaProduto } from "@/core/application/use-cases/produto/CriaProduto";
+import { CriaProdutoFactory } from "@/core/application/use-cases-factories/produto/CriaProdutoFactory";
 import { TipoProduto } from "@/core/domain/Enums/TipoProduto";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
@@ -18,9 +17,7 @@ class ProdutoController {
 
 			const { nome, descricao, tipo, valor, disponivel } = createBodySchema.parse(request.body);
 
-			const produtoRepository = new ProdutoRepository();
-			const criarProduto = new CriaProduto(produtoRepository);
-
+			const criarProduto = CriaProdutoFactory();
 			await criarProduto.executarAsync({ nome, descricao, tipo, valor, disponivel });
 
 			return response.status(201).send();
