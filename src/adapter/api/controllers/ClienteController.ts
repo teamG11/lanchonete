@@ -1,10 +1,20 @@
-import { BuscaClienteFactory } from "@/core/application/use-cases-factories/cliente/BuscaClienteFactory";
-import { CriaClienteFactory } from "@/core/application/use-cases-factories/cliente/CriaClienteFactory";
+import { IBuscaClienteUseCase } from "@/core/application/interfaces/use-cases/clientes/IBuscaClienteUseCase";
+import { ICriaClienteUseCase } from "@/core/application/interfaces/use-cases/clientes/ICriaClienteUseCase";
+import { BuscaClienteFactory } from "@/core/application/factories/use-cases/clientes/BuscaClienteFactory";
+import { CriaClienteFactory } from "@/core/application/factories/use-cases/clientes/CriaClienteFactory";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
 class ClienteController {
 
+	private readonly criaClienteUseCase: ICriaClienteUseCase;
+	private readonly buscaClienteUseCase: IBuscaClienteUseCase;
+
+	constructor(){
+		this.criaClienteUseCase = CriaClienteFactory();
+		this.buscaClienteUseCase = BuscaClienteFactory();
+	}
+	
 	async criar(request: Request, response: Response, next: NextFunction) {
 		try {
 			const dados = request.body;
@@ -16,10 +26,7 @@ class ClienteController {
 			});
 
 			const { nome, sobrenome, cpf } = createBodySchema.parse(dados);
-
-			const criarCliente = CriaClienteFactory();
-			await criarCliente.executarAsync({ nome, sobrenome, cpf });
-
+			await this.criaClienteUseCase.executarAsync({ nome, sobrenome, cpf });
 			return response.status(201).send();
 		} catch (error) {
 			next(error);
@@ -33,9 +40,7 @@ class ClienteController {
 			});
 
 			const { cpf } = paramsSchema.parse(request.params);
-
-			const buscarCliente = BuscaClienteFactory();
-			const { cliente } = await buscarCliente.executarAsync({ cpf });
+			const cliente  = await this.buscaClienteUseCase.executarAsync({ cpf });
 
 			return response.status(200).json(cliente);
 		} catch (error) {
