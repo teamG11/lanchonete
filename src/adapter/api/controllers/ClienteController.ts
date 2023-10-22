@@ -1,7 +1,7 @@
 import { IBuscaClienteUseCase } from "@/core/application/interfaces/use-cases/Clientes/IBuscaClienteUseCase";
 import { ICriaClienteUseCase } from "@/core/application/interfaces/use-cases/Clientes/ICriaClienteUseCase";
-import { BuscaClienteFactory } from "@/core/application/use-cases-factories/cliente/BuscaClienteFactory";
-import { CriaClienteFactory } from "@/core/application/use-cases-factories/cliente/CriaClienteFactory";
+import { BuscaClienteFactory } from "@/core/application/factories/use-cases/cliente/BuscaClienteFactory";
+import { CriaClienteFactory } from "@/core/application/factories/use-cases/cliente/CriaClienteFactory";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
@@ -40,7 +40,6 @@ class ClienteController {
 			});
 
 			const { cpf } = paramsSchema.parse(request.params);
-
 			const cliente  = await this.buscaClienteUseCase.executarAsync({ cpf });
 
 			return response.status(200).json(cliente);

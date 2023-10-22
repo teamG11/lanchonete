@@ -1,21 +1,18 @@
 import { Cliente } from "@/core/domain/Entities/Cliente";
 import { IClienteRepository } from "@/core/domain/Repositories/IClienteRepository";
-import { CPFCadastradoError } from "../../errors/CPFCadastradoError";
 import { CriaClienteDados, ICriaClienteUseCase } from "../../interfaces/use-cases/Clientes/ICriaClienteUseCase";
-import ClienteRepository from "@/adapter/infrastructure/Repositories/ClienteRepository";
-
+import { RegistroDuplicadoError } from "../../errors/RegistroDuplicadoError";
 
 export class CriaClienteUseCase implements ICriaClienteUseCase{
-	private readonly clienteRepository: IClienteRepository
 
-	constructor() {
-		this.clienteRepository = new ClienteRepository();
+	constructor(private clienteRepository: IClienteRepository) {
+		this.clienteRepository = clienteRepository;
 	 }
 
 	async executarAsync({ nome, sobrenome, cpf }: CriaClienteDados) {
 		const clienteComMesmoCPF = await this.clienteRepository.findByCPFAsync(cpf);
 		if (clienteComMesmoCPF) {
-			throw new CPFCadastradoError();
+			throw new RegistroDuplicadoError();
 		}
 
 		sobrenome = sobrenome || null;

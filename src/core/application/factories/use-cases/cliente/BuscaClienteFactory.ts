@@ -1,9 +1,9 @@
 import ClienteRepository from "@/adapter/infrastructure/Repositories/ClienteRepository";
-import { BuscaCliente } from "../../use-cases/cliente/BuscaCliente";
+import { BuscaClienteUseCase } from "../../../use-cases/clientes/BuscaClienteUseCase";
 
 export function BuscaClienteFactory() {
 	const clienteRepository = new ClienteRepository();
-	const buscaCliente = new BuscaCliente(clienteRepository);
-
+	const buscaCliente = new BuscaClienteUseCase(clienteRepository);
+	
 	return buscaCliente;
 }

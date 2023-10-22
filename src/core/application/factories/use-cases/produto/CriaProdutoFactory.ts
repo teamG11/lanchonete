@@ -1,5 +1,5 @@
 import ProdutoRepository from "@/adapter/infrastructure/Repositories/ProdutoRepository";
-import { CriaProduto } from "../../use-cases/produto/CriaProduto";
+import { CriaProduto } from "@/core/application/use-cases/produtos/CriaProduto";
 
 export function CriaProdutoFactory() {
 	const produtoRepository = new ProdutoRepository();
