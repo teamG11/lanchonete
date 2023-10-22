@@ -1,6 +1,6 @@
 import { Cliente } from "@/core/domain/Entities/Cliente";
 import { IClienteRepository } from "@/core/domain/Repositories/IClienteRepository";
-import { CPFCadastradoError } from "../../errors/CPFCadastradoError";
+import { RegistroDuplicadoError } from "../../errors/RegistroDuplicadoError";
 
 interface CriaClienteRequest {
 	nome: string;
@@ -19,7 +19,7 @@ export class CriaCliente {
 	async executarAsync({ nome, sobrenome, cpf }: CriaClienteRequest): Promise<CriaClienteResponse> {
 		const clienteComMesmoCPF = await this.clienteRepository.findByCPFAsync(cpf);
 		if (clienteComMesmoCPF) {
-			throw new CPFCadastradoError();
+			throw new RegistroDuplicadoError();
 		}
 
 		sobrenome = sobrenome || null;

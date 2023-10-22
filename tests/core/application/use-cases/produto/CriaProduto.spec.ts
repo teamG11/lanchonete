@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ProdutoTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ProdutoTestRepository';
-import { CriaProduto } from '../../../../../src/core/application/use-cases/produto/CriaProduto';
-import { ProdutoDuplicadoError } from '../../../../../src/core/application/errors/ProdutoDuplicadoError';
+import { CriaProduto } from '@/core//application/use-cases/produto/CriaProduto';
+import { RegistroDuplicadoError } from '@/core//application/errors/RegistroDuplicadoError';
 import { Produto } from '@/core/domain/Entities/Produto';
 import { TipoProduto } from '@/core/domain/Enums/TipoProduto';
 
@@ -42,6 +42,6 @@ describe('CriaProduto use case', () => {
 		};
 
 		await useCase.executarAsync(produto);
-		await expect(() => useCase.executarAsync(produto)).rejects.toBeInstanceOf(ProdutoDuplicadoError);
+		await expect(() => useCase.executarAsync(produto)).rejects.toBeInstanceOf(RegistroDuplicadoError);
 	})
 })
