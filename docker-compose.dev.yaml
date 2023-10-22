@@ -14,7 +14,7 @@ services:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/lanchonete?schema=public
     ports:
       - 7000:7000
-    command: sh -c "npx prisma migrate dev && npm run dev"
+    command: sh -c "npx prisma migrate deploy && npm run dev"
     depends_on:
       - db
 
