@@ -44,7 +44,7 @@ class ProdutoController {
 
 	async remove(request: Request, response: Response) {
 
-		const {id} = request.params;
+		const { id } = request.params;
 		const produtoRepository = new ProdutoRepository();
 		const removeProduto = new RemoveProduto(produtoRepository);
 		const produtos = await removeProduto.executarAsync(Number(id));

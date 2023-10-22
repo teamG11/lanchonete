@@ -8,7 +8,7 @@ export default class ProdutoRepository implements IProdutoRepository {
 	}
     
     async saveAsync(data: Produto): Promise<Produto> {
-        const produto = await prisma.produto.create({
+        const produto = prisma.produto.create({
 			data
 		});
         return produto;
