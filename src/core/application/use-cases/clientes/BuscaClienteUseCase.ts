@@ -1,6 +1,5 @@
 import { Cliente } from "@/core/domain/Entities/Cliente";
 import { IClienteRepository } from "@/core/domain/Repositories/IClienteRepository";
-import { ClienteNaoEncontradoError } from "../../errors/ClienteNaoEncontradoError";
 import { BuscaClienteDados, IBuscaClienteUseCase } from "../../interfaces/use-cases/Clientes/IBuscaClienteUseCase";
 import ClienteRepository from "@/adapter/infrastructure/Repositories/ClienteRepository";
 

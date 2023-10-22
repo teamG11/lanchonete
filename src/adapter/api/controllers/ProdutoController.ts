@@ -1,6 +1,5 @@
-import ProdutoRepository from "@/adapter/infrastructure/Repositories/ProdutoRepository";
 import { BuscaTodosProdutos } from "@/core/application/use-cases/produtos/BuscaTodosProdutos";
-import { CriaProduto } from "@/core/application/use-cases/produtos/CriaProduto";
+import { CriaProdutoFactory } from "@/core/application/use-cases-factories/produtos/CriaProdutoFactory";
 import { RemoveProduto } from "@/core/application/use-cases/produtos/RemoveProduto";
 import { TipoProduto } from "@/core/domain/Enums/TipoProduto";
 import { NextFunction, Request, Response } from "express";
@@ -12,16 +11,14 @@ class ProdutoController {
 			const createBodySchema = z.object({
 				nome: z.string().min(3).max(255),
 				descricao: z.string().min(3).max(255),
-				tipo: z.nativeEnum(TipoProduto),
+				tipo: z.nativeEnum(TipoProduto).transform((value) => value.toString()),
 				valor: z.number().positive(),
 				disponivel: z.boolean()
 			});
 
 			const { nome, descricao, tipo, valor, disponivel } = createBodySchema.parse(request.body);
-			
-			const produtoRepository = new ProdutoRepository();
-			const criarProduto = new CriaProduto(produtoRepository);
 
+			const criarProduto = CriaProdutoFactory();
 			await criarProduto.executarAsync({ nome, descricao, tipo, valor, disponivel });
 
 			return response.status(201).send();
@@ -30,11 +27,9 @@ class ProdutoController {
 		}
 
 	}
-	
+
 	async obterPorId(request: Request, response: Response) {
-		console.log("Obtendo produto por id...");
-		const { idProduto } = request.params;
-		return response.status(200).json({ id: idProduto, nome: "Cliente 1" });
+		return response.status(500);
 	}
 
 	async obterTodos(response: Response) {
