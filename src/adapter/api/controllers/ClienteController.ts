@@ -1,7 +1,7 @@
-import { IBuscaClienteUseCase } from "@/core/application/interfaces/use-cases/Clientes/IBuscaClienteUseCase";
-import { ICriaClienteUseCase } from "@/core/application/interfaces/use-cases/Clientes/ICriaClienteUseCase";
-import { BuscaClienteFactory } from "@/core/application/factories/use-cases/cliente/BuscaClienteFactory";
-import { CriaClienteFactory } from "@/core/application/factories/use-cases/cliente/CriaClienteFactory";
+import { IBuscaClienteUseCase } from "@/core/application/interfaces/use-cases/clientes/IBuscaClienteUseCase";
+import { ICriaClienteUseCase } from "@/core/application/interfaces/use-cases/clientes/ICriaClienteUseCase";
+import { BuscaClienteFactory } from "@/core/application/factories/use-cases/clientes/BuscaClienteFactory";
+import { CriaClienteFactory } from "@/core/application/factories/use-cases/clientes/CriaClienteFactory";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 

@@ -1,6 +1,6 @@
 import { Cliente } from "@/core/domain/Entities/Cliente";
 import { IClienteRepository } from "@/core/domain/Repositories/IClienteRepository";
-import { CriaClienteDados, ICriaClienteUseCase } from "../../interfaces/use-cases/Clientes/ICriaClienteUseCase";
+import { CriaClienteDados, ICriaClienteUseCase } from "../../interfaces/use-cases/clientes/ICriaClienteUseCase";
 import { RegistroDuplicadoError } from "../../errors/RegistroDuplicadoError";
 
 export class CriaClienteUseCase implements ICriaClienteUseCase{

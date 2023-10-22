@@ -1,9 +1,9 @@
 import ProdutoRepository from "@/adapter/infrastructure/Repositories/ProdutoRepository";
-import { CriaProduto } from "@/core/application/use-cases/produtos/CriaProduto";
+import { CriaProdutoUseCase } from "@/core/application/use-cases/produtos/CriaProdutoUseCase";
 
 export function CriaProdutoFactory() {
 	const produtoRepository = new ProdutoRepository();
-	const criaProduto = new CriaProduto(produtoRepository);
+	const useCase = new CriaProdutoUseCase(produtoRepository);
 
-	return criaProduto;
+	return useCase;
 }

@@ -1,6 +1,6 @@
 import { IProdutoRepository } from "@/core/domain/Repositories/IProdutoRepository";
 
-export class RemoveProduto{
+export class RemoveProdutoUseCase {
     constructor(private produtoRepository: IProdutoRepository) { }
 
     async executarAsync(id: number): Promise<void> {

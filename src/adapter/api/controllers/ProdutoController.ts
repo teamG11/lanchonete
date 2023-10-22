@@ -1,11 +1,25 @@
-import { BuscaTodosProdutos } from "@/core/application/use-cases/produtos/BuscaTodosProdutos";
-import { CriaProdutoFactory } from "@/core/application/use-cases-factories/produtos/CriaProdutoFactory";
-import { RemoveProduto } from "@/core/application/use-cases/produtos/RemoveProduto";
+import { BuscaTodosProdutosFactory } from "@/core/application/factories/use-cases/produtos/BuscaProdutoFactory";
+import { CriaProdutoFactory } from "@/core/application/factories/use-cases/produtos/CriaProdutoFactory";
+import { RemoveProdutoFactory } from "@/core/application/factories/use-cases/produtos/RemoveProdutoFactory";
+import { IBuscaTodosProdutosUseCase } from "@/core/application/interfaces/use-cases/produtos/IBuscaTodosProdutosUseCase";
+import { ICriaProdutoUseCase } from "@/core/application/interfaces/use-cases/produtos/ICriarProdutoUseCase";
+import { IRemoveProdutoUseCase } from "@/core/application/interfaces/use-cases/produtos/IRemoveProdutoUseCase";
 import { TipoProduto } from "@/core/domain/Enums/TipoProduto";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
 class ProdutoController {
+
+	private readonly criaProdutoUseCase: ICriaProdutoUseCase;
+	private readonly buscaTodosProdutosUseCase: IBuscaTodosProdutosUseCase;
+	private readonly removeProdutoUseCase: IRemoveProdutoUseCase;
+
+	constructor(){
+		this.criaProdutoUseCase = CriaProdutoFactory();
+		this.buscaTodosProdutosUseCase = BuscaTodosProdutosFactory();
+		this.removeProdutoUseCase = RemoveProdutoFactory();
+	}
+
 	async incluir(request: Request, response: Response, next: NextFunction) {
 		try {
 			const createBodySchema = z.object({
@@ -17,9 +31,7 @@ class ProdutoController {
 			});
 
 			const { nome, descricao, tipo, valor, disponivel } = createBodySchema.parse(request.body);
-
-			const criarProduto = CriaProdutoFactory();
-			await criarProduto.executarAsync({ nome, descricao, tipo, valor, disponivel });
+			await this.criaProdutoUseCase.executarAsync({ nome, descricao, tipo, valor, disponivel });
 
 			return response.status(201).send();
 		} catch (error) {
@@ -33,9 +45,7 @@ class ProdutoController {
 	}
 
 	async obterTodos(response: Response) {
-		const produtoRepository = new ProdutoRepository();
-		const buscaTodosProduto = new BuscaTodosProdutos(produtoRepository);
-		const produtos = await buscaTodosProduto.executarAsync();
+		const produtos = await this.buscaTodosProdutosUseCase.executarAsync();
 
 		return response.status(200).json([
 			produtos
@@ -45,9 +55,7 @@ class ProdutoController {
 	async remove(request: Request, response: Response) {
 
 		const { id } = request.params;
-		const produtoRepository = new ProdutoRepository();
-		const removeProduto = new RemoveProduto(produtoRepository);
-		const produtos = await removeProduto.executarAsync(Number(id));
+		const produtos = await this.removeProdutoUseCase.executarAsync(Number(id));
 
 		return response.status(200).json([
 			produtos
