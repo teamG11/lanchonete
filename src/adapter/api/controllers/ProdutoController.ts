@@ -1,11 +1,12 @@
 import ProdutoRepository from "@/adapter/infrastructure/Repositories/ProdutoRepository";
-import { CriaProduto } from "@/core/application/use-cases/produto/CriaProduto";
+import { BuscaTodosProdutos } from "@/core/application/use-cases/produtos/BuscaTodosProdutos";
+import { CriaProduto } from "@/core/application/use-cases/produtos/CriaProduto";
+import { RemoveProduto } from "@/core/application/use-cases/produtos/RemoveProduto";
 import { TipoProduto } from "@/core/domain/Enums/TipoProduto";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
 class ProdutoController {
-
 	async incluir(request: Request, response: Response, next: NextFunction) {
 		try {
 			const createBodySchema = z.object({
@@ -36,12 +37,25 @@ class ProdutoController {
 		return response.status(200).json({ id: idProduto, nome: "Cliente 1" });
 	}
 
-	async obterTodos(request: Request, response: Response) {
-		console.log("Obtendo todos os produtos...");
+	async obterTodos(response: Response) {
+		const produtoRepository = new ProdutoRepository();
+		const buscaTodosProduto = new BuscaTodosProdutos(produtoRepository);
+		const produtos = await buscaTodosProduto.executarAsync();
+
 		return response.status(200).json([
-			{ id: 1, nome: "Cliente 1" },
-			{ id: 2, nome: "Cliente 2" },
-			{ id: 3, nome: "Cliente 3" }
+			produtos
+		]);
+	}
+
+	async remove(request: Request, response: Response) {
+
+		const {id} = request.params;
+		const produtoRepository = new ProdutoRepository();
+		const removeProduto = new RemoveProduto(produtoRepository);
+		const produtos = await removeProduto.executarAsync(Number(id));
+
+		return response.status(200).json([
+			produtos
 		]);
 	}
 

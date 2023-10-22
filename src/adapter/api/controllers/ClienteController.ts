@@ -1,11 +1,20 @@
-import ClienteRepository from "@/adapter/infrastructure/Repositories/ClienteRepository";
-import { BuscaCliente } from "@/core/application/use-cases/cliente/BuscaCliente";
-import { CriaCliente } from "@/core/application/use-cases/cliente/CriaCliente";
+import { IBuscaClienteUseCase } from "@/core/application/interfaces/use-cases/Clientes/IBuscaClienteUseCase";
+import { ICriaClienteUseCase } from "@/core/application/interfaces/use-cases/Clientes/ICriaClienteUseCase";
+import { BuscaClienteUseCase } from "@/core/application/use-cases/clientes/BuscaClienteUseCase";
+import { CriaClienteUseCase } from "@/core/application/use-cases/clientes/CriaClienteUseCase";
 import { NextFunction, Request, Response } from "express";
-import { ZodError, z } from "zod";
+import { z } from "zod";
 
 class ClienteController {
 
+	private readonly criaClienteUseCase: ICriaClienteUseCase;
+	private readonly buscaClienteUseCase: IBuscaClienteUseCase;
+
+	constructor(){
+		this.criaClienteUseCase = new CriaClienteUseCase();
+		this.buscaClienteUseCase = new BuscaClienteUseCase();
+	}
+	
 	async criar(request: Request, response: Response, next: NextFunction) {
 		try {
 			const dados = request.body;
@@ -17,11 +26,7 @@ class ClienteController {
 			});
 
 			const { nome, sobrenome, cpf } = createBodySchema.parse(dados);
-
-			const clienteRepository = new ClienteRepository();
-			const criarCliente = new CriaCliente(clienteRepository);
-
-			await criarCliente.executarAsync({ nome, sobrenome, cpf });
+			await this.criaClienteUseCase.executarAsync({ nome, sobrenome, cpf });
 			return response.status(201).send();
 		} catch (error) {
 			next(error);
@@ -35,11 +40,7 @@ class ClienteController {
 			});
 
 			const { cpf } = paramsSchema.parse(request.params);
-
-			const clienteRepository = new ClienteRepository();
-			const buscarCliente = new BuscaCliente(clienteRepository);
-
-			const cliente = await buscarCliente.executarAsync({ cpf });
+			const cliente = this.buscaClienteUseCase.executarAsync({ cpf });
 
 			return response.status(200).json(cliente);
 		} catch (error) {
