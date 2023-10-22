@@ -7,8 +7,8 @@ produtoRouter.post("/", new ProdutoController().criar);
 produtoRouter.put("/:id", new ProdutoController().editar);
 produtoRouter.delete("/:id", new ProdutoController().remove);
 
-produtoRouter.get("/", new ProdutoController().obterTodos);
+produtoRouter.get("", new ProdutoController().obterTodos);
 produtoRouter.get("/:id", new ProdutoController().obterPorId);
-produtoRouter.get("/categoria/:id", new ProdutoController().obterPorCategoria);
+produtoRouter.get("/categoria/:categoria", new ProdutoController().obterPorCategoria);
 
 export { produtoRouter };

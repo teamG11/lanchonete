@@ -1,6 +1,6 @@
-import { BuscaTodosProdutosFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutoFactory";
-import { BuscaProdutoParaEdicaoFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutoParaEdicaoFactory";
-import { BuscaProdutoPorCategoriaFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutoPorCategoriaFactory";
+import { BuscaProdutoFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutoFactory";
+import { BuscaProdutosPorCategoriaFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutosPorCategoriaFactory";
+import { BuscaTodosProdutosFactory } from "@/core/application/use-cases-factories/produtos/BuscaTodosProdutosFactory";
 import { CriaProdutoFactory } from "@/core/application/use-cases-factories/produtos/CriaProdutoFactory";
 import { EditaProdutoUseCaseFactory } from "@/core/application/use-cases-factories/produtos/EditaProdutoUseCaseFactory";
 import { RemoveProdutoFactory } from "@/core/application/use-cases-factories/produtos/RemoveProdutoFactory";
@@ -74,11 +74,25 @@ class ProdutoController {
 			const paramsSchema = z.object({ id: z.string().transform((value) => Number(value)) });
 			const { id } = paramsSchema.parse(request.params);
 
-			const buscaProdutoEdicaoUseCase = BuscaProdutoParaEdicaoFactory();
-			const produto = buscaProdutoEdicaoUseCase.executarAsync({ id });
+			const buscaProdutoUseCase = BuscaProdutoFactory();
+			const { produto } = await buscaProdutoUseCase.executarAsync({ id });
+
+			return response.status(200).json(produto);
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	async obterPorCategoria(request: Request, response: Response, next: NextFunction) {
+		try {
+			const paramsSchema = z.object({ categoria: z.nativeEnum(CategoriaProduto) });
+			const { categoria } = paramsSchema.parse(request.params);
+
+			const buscaProdutoPorCategoria = BuscaProdutosPorCategoriaFactory();
+			const produtos = await buscaProdutoPorCategoria.executarAsync({ categoria});
 
 			return response.status(200).json([
-				produto
+				produtos
 			]);
 		} catch (error) {
 			next(error);
@@ -87,28 +101,10 @@ class ProdutoController {
 
 	async obterTodos(request: Request, response: Response, next: NextFunction) {
 		try {
-			const paramsSchema = z.object({ id: z.string().transform((value) => Number(value)) });
-			const { id: idCategoria } = paramsSchema.parse(request.params);
-
-			const buscaProdutoPorCategoria = BuscaProdutoPorCategoriaFactory();
-			const produtos = await buscaProdutoPorCategoria.executarAsync({ idCategoria});
-
-			return response.status(200).json([
-				produtos
-			]);
-		} catch (error) {
-			next(error);
-		}
-	}
-
-	async obterPorCategoria(request: Request, response: Response, next: NextFunction) {
-		try {
 			const buscaTodosProdutosUseCase = BuscaTodosProdutosFactory();
-			const produtos = await buscaTodosProdutosUseCase.executarAsync();
+			const { produtos } = await buscaTodosProdutosUseCase.executarAsync();
 
-			return response.status(200).json([
-				produtos
-			]);
+			return response.status(200).json({produtos: produtos});
 		} catch (error) {
 			next(error);
 		}
