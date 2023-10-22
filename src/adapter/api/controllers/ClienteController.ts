@@ -1,8 +1,7 @@
-import ClienteRepository from "@/adapter/infrastructure/Repositories/ClienteRepository";
-import { BuscaCliente } from "@/core/application/use-cases/cliente/BuscaCliente";
-import { CriaCliente } from "@/core/application/use-cases/cliente/CriaCliente";
+import { BuscaClienteFactory } from "@/core/application/use-cases-factories/cliente/BuscaClienteFactory";
+import { CriaClienteFactory } from "@/core/application/use-cases-factories/cliente/CriaClienteFactory";
 import { NextFunction, Request, Response } from "express";
-import { ZodError, z } from "zod";
+import { z } from "zod";
 
 class ClienteController {
 
@@ -18,7 +17,7 @@ class ClienteController {
 
 			const { nome, sobrenome, cpf } = createBodySchema.parse(dados);
 
-			const criarCliente = new CriaCliente(new ClienteRepository());
+			const criarCliente = CriaClienteFactory();
 			await criarCliente.executarAsync({ nome, sobrenome, cpf });
 
 			return response.status(201).send();
@@ -35,7 +34,7 @@ class ClienteController {
 
 			const { cpf } = paramsSchema.parse(request.params);
 
-			const buscarCliente = new BuscaCliente(new ClienteRepository());
+			const buscarCliente = BuscaClienteFactory();
 			const { cliente } = await buscarCliente.executarAsync({ cpf });
 
 			return response.status(200).json(cliente);
