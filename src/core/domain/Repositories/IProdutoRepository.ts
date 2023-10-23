@@ -6,5 +6,7 @@ export interface IProdutoRepository {
     findByIdAsync(id: number): Promise<Produto| null>;
     findAllAsync(): Promise<Produto[]>;
     findByNomeAsync(nome: string): Promise<Produto| null>;
+    findByCategoriaAsync(categoria: string): Promise<Produto[]>
     remove(id: number): Promise<void>;
+    
 }

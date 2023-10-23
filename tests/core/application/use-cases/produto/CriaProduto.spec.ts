@@ -3,7 +3,7 @@ import { ProdutoTestRepository } from '@/adapter/infrastructure/Repositories/Tes
 import { CriaProduto } from '@/core//application/use-cases/produto/CriaProduto';
 import { RegistroDuplicadoError } from '@/core//application/errors/RegistroDuplicadoError';
 import { Produto } from '@/core/domain/Entities/Produto';
-import { TipoProduto } from '@/core/domain/Enums/TipoProduto';
+import { CategoriaProduto } from '@/core/domain/Enums/CategoriaProduto';
 
 let produtoRepository: ProdutoTestRepository;
 let useCase: CriaProduto;
@@ -18,7 +18,7 @@ describe('CriaProduto use case', () => {
 		const produto: Produto = {
 			nome: 'Produto 1',
 			descricao: 'Descrição do produto 1',
-			tipo: TipoProduto.lanche.toString(),
+			tipo: CategoriaProduto.lanche.toString(),
 			disponivel: true,
 			valor: 1099,
 		};
@@ -36,7 +36,7 @@ describe('CriaProduto use case', () => {
 		const produto: Produto = {
 			nome: 'Produto 1',
 			descricao: 'Descrição do produto 1',
-			tipo: TipoProduto.lanche.toString(),
+			tipo: CategoriaProduto.lanche.toString(),
 			disponivel: true,
 			valor: 1099,
 		};
