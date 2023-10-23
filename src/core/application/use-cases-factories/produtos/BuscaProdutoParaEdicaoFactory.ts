@@ -2,8 +2,8 @@ import ProdutoRepository from "@/adapter/infrastructure/Repositories/ProdutoRepo
 import { BuscaProdutoParaEdicaoUseCase } from "@/core/application/use-cases/produtos/BuscaProdutoParaEdicaoUseCase";
 
 export function BuscaProdutoParaEdicaoFactory() {
-    const produtoRepository = new ProdutoRepository();
-    const useCase = new BuscaProdutoParaEdicaoUseCase(produtoRepository);
+	const produtoRepository = new ProdutoRepository();
+	const useCase = new BuscaProdutoParaEdicaoUseCase(produtoRepository);
 
-    return useCase;
+	return useCase;
 }

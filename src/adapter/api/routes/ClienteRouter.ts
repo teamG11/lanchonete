@@ -5,7 +5,7 @@ const clienteRouter = Router();
 
 const clienteController = new ClienteController();
 
-clienteRouter.post("/criar", clienteController.criar);
+clienteRouter.post("/", clienteController.criar);
 clienteRouter.get("/buscar/:cpf", clienteController.buscar);
 
 export { clienteRouter };

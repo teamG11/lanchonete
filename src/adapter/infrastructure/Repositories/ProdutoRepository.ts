@@ -1,23 +1,23 @@
-import { Produto} from "@/core/domain/Entities/Produto";
+import { Produto } from "@/core/domain/Entities/Produto";
 import { IProdutoRepository } from "@/core/domain/Repositories/IProdutoRepository";
 import { prisma } from "@/lib/prisma";
 
 export default class ProdutoRepository implements IProdutoRepository {
-    async findByIdAsync(id: number): Promise<Produto | null> {
-        const produto = await prisma.produto.findFirst({
-            where: {
-                id
-            }
-        });
+	async findByIdAsync(id: number): Promise<Produto | null> {
+		const produto = await prisma.produto.findFirst({
+			where: {
+				id
+			}
+		});
 
-        return produto;
+		return produto;
 	}
-    
-    async saveAsync(data: Produto): Promise<Produto> {
-        const produto = prisma.produto.create({
+
+	async saveAsync(data: Produto): Promise<Produto> {
+		const produto = prisma.produto.create({
 			data
 		});
-        return produto;
+		return produto;
 	}
 
 	async findByNomeAsync(nome: string): Promise<Produto | null> {
@@ -28,42 +28,42 @@ export default class ProdutoRepository implements IProdutoRepository {
 		});
 
 		return produto;
-    }
+	}
 
-    async updateAsync(data: Produto): Promise<Produto> {
-        const produto = await prisma.produto.update({
-            where:{
-                id: data.id
-            },
-            data:{
-                nome: data.nome,
-                descricao: data.descricao,
-                tipo: data.tipo,
-                valor: data.valor,
-                disponivel: data.disponivel
-            }
-        });
+	async updateAsync(data: Produto): Promise<Produto> {
+		const produto = await prisma.produto.update({
+			where: {
+				id: data.id
+			},
+			data: {
+				nome: data.nome,
+				descricao: data.descricao,
+				tipo: data.tipo,
+				valor: data.valor,
+				disponivel: data.disponivel
+			}
+		});
 
-        return produto;
-    }
-    async findAllAsync(): Promise<Produto[]> {
-        const produto = await prisma.produto.findMany();
-        return produto;
-    }
+		return produto;
+	}
+	async findAllAsync(): Promise<Produto[]> {
+		const produto = await prisma.produto.findMany();
+		return produto;
+	}
 
-    async remove(id: number ): Promise<void> {
-        await prisma.produto.delete({
-            where: {id}
-        })
-    }
+	async removeAsync(id: number): Promise<void> {
+		await prisma.produto.delete({
+			where: { id }
+		})
+	}
 
-    async findByCategoriaAsync(categoria: string): Promise<Produto[]> {
-        const produto = await prisma.produto.findMany({
-            where:{
-                tipo: categoria
-            }
-        });
+	async findByCategoriaAsync(categoria: string): Promise<Produto[]> {
+		const produto = await prisma.produto.findMany({
+			where: {
+				tipo: categoria
+			}
+		});
 
-        return produto;
-    }
+		return produto;
+	}
 }

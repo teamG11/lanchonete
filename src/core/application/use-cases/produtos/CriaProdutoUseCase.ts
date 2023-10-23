@@ -1,16 +1,33 @@
 import { Produto } from "@/core/domain/Entities/Produto";
 import { IProdutoRepository } from "@/core/domain/Repositories/IProdutoRepository";
-import { CriaProdutosRequest, ICriaProdutoUseCase } from "../../interfaces/use-cases/produtos/ICriarProdutoUseCase";
+import { RegistroDuplicadoError } from "../../errors/RegistroDuplicadoError";
 
-export class CriaProdutoUseCase implements ICriaProdutoUseCase {
-  
-    constructor(private produtoRepository: IProdutoRepository) { }
+interface CriaProdutosRequest {
+	nome: string;
+	descricao: string;
+	tipo: string;
+	valor: number;
+	disponivel: boolean;
+}
 
-  async executarAsync({ nome, descricao, tipo, valor, disponivel }: CriaProdutosRequest): Promise<Produto> {
+interface CriaProdutoResponse {
+	produto: Produto;
+}
+
+export class CriaProdutoUseCase {
+
+	constructor(private produtoRepository: IProdutoRepository) { }
+
+	async executarAsync({ nome, descricao, tipo, valor, disponivel }: CriaProdutosRequest): Promise<CriaProdutoResponse> {
+		const produtoComMesmoNome = await this.produtoRepository.findByNomeAsync(nome);
+		if (produtoComMesmoNome) {
+			throw new RegistroDuplicadoError();
+		}
+
 		const produto = await this.produtoRepository.saveAsync(
 			new Produto({ nome, descricao, tipo, valor, disponivel })
 		);
 
-		return produto;
-  }
+		return { produto };
+	}
 }

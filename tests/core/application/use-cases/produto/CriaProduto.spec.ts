@@ -1,17 +1,17 @@
-import { beforeEach, describe, expect, it } from 'vitest';
 import { ProdutoTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ProdutoTestRepository';
-import { CriaProduto } from '@/core//application/use-cases/produto/CriaProduto';
 import { RegistroDuplicadoError } from '@/core//application/errors/RegistroDuplicadoError';
+import { CriaProdutoUseCase } from '@/core/application/use-cases/produtos/CriaProdutoUseCase';
 import { Produto } from '@/core/domain/Entities/Produto';
 import { CategoriaProduto } from '@/core/domain/Enums/CategoriaProduto';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 let produtoRepository: ProdutoTestRepository;
-let useCase: CriaProduto;
+let useCase: CriaProdutoUseCase;
 
 describe('CriaProduto use case', () => {
 	beforeEach(() => {
 		produtoRepository = new ProdutoTestRepository();
-		useCase = new CriaProduto(produtoRepository);
+		useCase = new CriaProdutoUseCase(produtoRepository);
 	})
 
 	it('Deve permitir cadastrar produto', async () => {

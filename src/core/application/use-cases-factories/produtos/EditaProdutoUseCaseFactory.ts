@@ -2,8 +2,8 @@ import ProdutoRepository from "@/adapter/infrastructure/Repositories/ProdutoRepo
 import { EditaProdutoUseCase } from "@/core/application/use-cases/produtos/EditaProdutoUseCase";
 
 export function EditaProdutoUseCaseFactory() {
-    const produtoRepository = new ProdutoRepository();
-    const useCase = new EditaProdutoUseCase(produtoRepository);
+	const produtoRepository = new ProdutoRepository();
+	const useCase = new EditaProdutoUseCase(produtoRepository);
 
-    return useCase;
+	return useCase;
 }
