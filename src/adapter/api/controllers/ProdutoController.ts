@@ -1,8 +1,9 @@
 import { BuscaTodosProdutosFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutoFactory";
 import { BuscaProdutoParaEdicaoFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutoParaEdicaoFactory";
 import { CriaProdutoFactory } from "@/core/application/use-cases-factories/produtos/CriaProdutoFactory";
+import { EditaProdutoUseCaseFactory } from "@/core/application/use-cases-factories/produtos/EditaProdutoUseCaseFactory";
 import { RemoveProdutoFactory } from "@/core/application/use-cases-factories/produtos/RemoveProdutoFactory";
-import { TipoProduto } from "@/core/domain/Enums/TipoProduto";
+import { CategoriaProduto } from "@/core/domain/Enums/CategoriaProduto";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
@@ -13,7 +14,7 @@ class ProdutoController {
 			const createBodySchema = z.object({
 				nome: z.string().min(3).max(255),
 				descricao: z.string().min(3).max(255),
-				tipo: z.nativeEnum(TipoProduto).transform((value) => value.toString()),
+				tipo: z.nativeEnum(CategoriaProduto).transform((value) => value.toString()),
 				valor: z.number().positive(),
 				disponivel: z.boolean()
 			});
@@ -28,6 +29,34 @@ class ProdutoController {
 			next(error);
 		}
 
+	}
+
+	async editar(request: Request, response: Response) {
+		const createBodySchema = z.object({
+			nome: z.string().min(3).max(255),
+			descricao: z.string().min(3).max(255),
+			tipo: z.nativeEnum(CategoriaProduto).transform((value) => value.toString()),
+			valor: z.number().positive(),
+			disponivel: z.boolean()
+		});
+
+		const { nome, descricao, tipo, valor, disponivel } = createBodySchema.parse(request.body);
+
+		const editaProdutoUseCase = EditaProdutoUseCaseFactory();
+		await editaProdutoUseCase.executarAsync({ nome, descricao, tipo, valor, disponivel });
+
+		return response.status(200).send();
+	}
+
+	async remove(request: Request, response: Response) {
+		const { id } = request.params;
+
+		const removeProdutoUseCase = RemoveProdutoFactory();
+		const produtos = await removeProdutoUseCase.executarAsync({ id: Number(id) });
+
+		return response.status(200).json([
+			produtos
+		]);
 	}
 
 	async obterPorId(request: Request, response: Response) {
@@ -50,16 +79,7 @@ class ProdutoController {
 		]);
 	}
 
-	async remove(request: Request, response: Response) {
-		const { id } = request.params;
 
-		const removeProdutoUseCase = RemoveProdutoFactory();
-		const produtos = await removeProdutoUseCase.executarAsync({ id: Number(id) });
-
-		return response.status(200).json([
-			produtos
-		]);
-	}
 
 }
 

@@ -33,7 +33,12 @@ export class ProdutoTestRepository implements IProdutoRepository {
 	findAllAsync(): Promise<Produto[]> {
 		throw new Error("Method not implemented.");
 	}
-	remove(id: number): Promise<void> {
+
+	findByCategoriaAsync(categoria: string): Promise<Produto[]> {
+		throw new Error("Method not implemented.");
+	}
+
+	removeAsync(id: number): Promise<void> {
 		throw new Error("Method not implemented.");
 	}
 }
