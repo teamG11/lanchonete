@@ -1,22 +1,26 @@
 import { Cliente } from "@/core/domain/Entities/Cliente";
 import { IClienteRepository } from "@/core/domain/Repositories/IClienteRepository";
-import { BuscaClienteDados, IBuscaClienteUseCase } from "../../interfaces/use-cases/clientes/IBuscaClienteUseCase";
-import ClienteRepository from "@/adapter/infrastructure/Repositories/ClienteRepository";
 import { RegistroNaoEncontradoError } from "../../errors/RegistroNaoEncontradoError";
 
-export class BuscaClienteUseCase implements IBuscaClienteUseCase {
+export interface BuscaClienteRequest {
+	cpf: string;
+}
 
-	constructor(private clienteRepository: IClienteRepository) {
-		this.clienteRepository = new ClienteRepository();
-	}
+export interface BuscaClienteResponse {
+	cliente: Cliente;
+}
 
-	async executarAsync({ cpf }: BuscaClienteDados): Promise<Cliente> {
+export class BuscaClienteUseCase {
+
+	constructor(private clienteRepository: IClienteRepository) { }
+
+	async executarAsync({ cpf }: BuscaClienteRequest): Promise<BuscaClienteResponse> {
 		const cliente = await this.clienteRepository.findByCPFAsync(cpf);
 
 		if (!cliente) {
 			throw new RegistroNaoEncontradoError();
 		}
 
-		return cliente;
+		return { cliente };
 	}
 }

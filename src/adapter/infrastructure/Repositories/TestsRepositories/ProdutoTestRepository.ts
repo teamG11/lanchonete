@@ -8,7 +8,7 @@ export class ProdutoTestRepository implements IProdutoRepository {
 	async findByNomeAsync(nome: string) {
 		const produto = this.produtos.find(produto => produto.nome === nome);
 		return produto ?? null;
-	 }
+	}
 
 	async saveAsync(produto: Produto) {
 		const novoProduto: Produto = {

@@ -1,15 +1,15 @@
-import { beforeEach, describe, expect, it } from 'vitest';
-import { CriaCliente } from '@/core/application/use-cases/cliente/CriaCliente';
 import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
 import { RegistroDuplicadoError } from '@/core/application/errors/RegistroDuplicadoError';
+import { CriaClienteUseCase } from '@/core/application/use-cases/clientes/CriaClienteUseCase';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 let clienteRepository: ClienteTestRepository;
-let useCase: CriaCliente;
+let useCase: CriaClienteUseCase;
 
 describe('CriaCliente use case', () => {
 	beforeEach(() => {
 		clienteRepository = new ClienteTestRepository();
-		useCase = new CriaCliente(clienteRepository);
+		useCase = new CriaClienteUseCase(clienteRepository);
 	})
 
 	it('Deve permitir cadastrar cliente', async () => {

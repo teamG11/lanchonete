@@ -1,15 +1,22 @@
 import { Cliente } from "@/core/domain/Entities/Cliente";
 import { IClienteRepository } from "@/core/domain/Repositories/IClienteRepository";
-import { CriaClienteDados, ICriaClienteUseCase } from "../../interfaces/use-cases/clientes/ICriaClienteUseCase";
 import { RegistroDuplicadoError } from "../../errors/RegistroDuplicadoError";
 
-export class CriaClienteUseCase implements ICriaClienteUseCase{
+interface CriaClienteRequest {
+	nome: string;
+	sobrenome?: string | null;
+	cpf: string;
+}
 
-	constructor(private clienteRepository: IClienteRepository) {
-		this.clienteRepository = clienteRepository;
-	 }
+interface CriaClienteResponse {
+	cliente: Cliente;
+}
 
-	async executarAsync({ nome, sobrenome, cpf }: CriaClienteDados) {
+export class CriaClienteUseCase {
+
+	constructor(private clienteRepository: IClienteRepository) { }
+
+	async executarAsync({ nome, sobrenome, cpf }: CriaClienteRequest): Promise<CriaClienteResponse> {
 		const clienteComMesmoCPF = await this.clienteRepository.findByCPFAsync(cpf);
 		if (clienteComMesmoCPF) {
 			throw new RegistroDuplicadoError();
@@ -17,7 +24,7 @@ export class CriaClienteUseCase implements ICriaClienteUseCase{
 
 		sobrenome = sobrenome || null;
 
-		const cliente = new Cliente({ nome, sobrenome, cpf });
-		this.clienteRepository.saveAsync(cliente);
+		const cliente = await this.clienteRepository.saveAsync(new Cliente({ nome, sobrenome, cpf }));
+		return { cliente };
 	}
 }

@@ -7,7 +7,7 @@ export class ClienteTestRepository implements IClienteRepository {
 	async findByCPFAsync(cpf: string) {
 		const cliente = this.clientes.find(cliente => cliente.cpf === cpf);
 		return cliente ?? null;
-	 }
+	}
 
 	async saveAsync(cliente: Cliente) {
 		const novoCliente: Cliente = {

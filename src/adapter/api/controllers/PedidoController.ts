@@ -1,1 +1,1 @@
-class PedidoController {}
+class PedidoController { }

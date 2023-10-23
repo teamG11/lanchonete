@@ -2,8 +2,8 @@ import ProdutoRepository from "@/adapter/infrastructure/Repositories/ProdutoRepo
 import { RemoveProdutoUseCase } from "@/core/application/use-cases/produtos/RemoveProdutoUseCase";
 
 export function RemoveProdutoFactory() {
-    const produtoRepository = new ProdutoRepository();
-    const useCase = new RemoveProdutoUseCase(produtoRepository);
+	const produtoRepository = new ProdutoRepository();
+	const useCase = new RemoveProdutoUseCase(produtoRepository);
 
-    return useCase;
+	return useCase;
 }
