@@ -1,4 +1,4 @@
-export enum TipoProduto {
+export enum CategoriaProduto {
     bebida,
     lanche,
     porcao
