@@ -6,6 +6,6 @@ const pedidoRouter = Router();
 const pedidoController = new PedidoController();
 
 pedidoRouter.post("", pedidoController.criarPedido);
-pedidoRouter.get("/validar/:pedidoId", pedidoController.validarPedido);
+pedidoRouter.get("/:pedidoId", pedidoController.validarPedido);
 
 export { pedidoRouter };

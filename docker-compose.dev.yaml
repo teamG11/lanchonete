@@ -28,6 +28,16 @@ services:
     ports:
       - 5432:5432
 
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./tooling/swagger/swagger.json:/openapi.json
+    environment:
+      SWAGGER_JSON: /openapi.json
+
 networks:
     default:
         name: lanchonete-network
