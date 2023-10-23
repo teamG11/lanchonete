@@ -1,9 +1,9 @@
 import ProdutoRepository from "@/adapter/infrastructure/Repositories/ProdutoRepository";
-import { BuscaTodosProdutosUseCase } from "@/core/application/use-cases/produtos/BuscaTodosProdutosUseCase";
+import { BuscaProdutoUseCase } from "../../use-cases/produtos/BuscaProdutoUseCase";
 
-export function BuscaTodosProdutosFactory() {
+export function BuscaProdutoFactory() {
 	const produtoRepository = new ProdutoRepository();
-	const useCase = new BuscaTodosProdutosUseCase(produtoRepository);
+	const useCase = new BuscaProdutoUseCase(produtoRepository);
 
 	return useCase;
 }

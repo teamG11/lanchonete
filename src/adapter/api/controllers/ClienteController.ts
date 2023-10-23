@@ -15,12 +15,12 @@ class ClienteController {
 				cpf: z.string().min(11).max(11),
 			});
 
-			const { nome, sobrenome, cpf } = createBodySchema.parse(dados);
+			const clienteToCreate = createBodySchema.parse(dados);
 
 			const criaClienteUseCase = CriaClienteFactory();
-			await criaClienteUseCase.executarAsync({ nome, sobrenome, cpf });
+			const { cliente } = await criaClienteUseCase.executarAsync({ ...clienteToCreate });
 
-			return response.status(201).send();
+			return response.status(201).send(cliente);
 		} catch (error) {
 			next(error);
 		}
@@ -35,7 +35,7 @@ class ClienteController {
 			const { cpf } = paramsSchema.parse(request.params);
 
 			const buscaClienteUseCase = BuscaClienteFactory()
-			const cliente = await buscaClienteUseCase.executarAsync({ cpf });
+			const { cliente } = await buscaClienteUseCase.executarAsync({ cpf });
 
 			return response.status(200).json(cliente);
 		} catch (error) {

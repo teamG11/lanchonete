@@ -18,7 +18,7 @@ describe('CriaProduto use case', () => {
 		const produto: Produto = {
 			nome: 'Produto 1',
 			descricao: 'Descrição do produto 1',
-			tipo: CategoriaProduto.lanche.toString(),
+			categoria: CategoriaProduto.lanche,
 			disponivel: true,
 			valor: 1099,
 		};
@@ -27,7 +27,7 @@ describe('CriaProduto use case', () => {
 
 		expect(produtoResponse.nome).toBe(produto.nome);
 		expect(produtoResponse.descricao).toBe(produto.descricao);
-		expect(produtoResponse.tipo).toBe(produto.tipo);
+		expect(produtoResponse.categoria).toBe(produto.categoria);
 		expect(produtoResponse.disponivel).toBe(produto.disponivel);
 		expect(produtoResponse.valor).toBe(produto.valor);
 	})
@@ -36,7 +36,7 @@ describe('CriaProduto use case', () => {
 		const produto: Produto = {
 			nome: 'Produto 1',
 			descricao: 'Descrição do produto 1',
-			tipo: CategoriaProduto.lanche.toString(),
+			categoria: "lanche",
 			disponivel: true,
 			valor: 1099,
 		};

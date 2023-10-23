@@ -1,13 +1,25 @@
 -- CreateTable
+CREATE TABLE "cliente" (
+    "id" SERIAL NOT NULL,
+    "nome" TEXT NOT NULL,
+    "sobrenome" TEXT,
+    "cpf" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "cliente_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "produto" (
     "id" SERIAL NOT NULL,
     "nome" TEXT NOT NULL,
     "descricao" TEXT NOT NULL,
-    "tipo" TEXT NOT NULL,
+    "categoria" TEXT NOT NULL,
     "valor" INTEGER NOT NULL,
-    "disponivel" BOOLEAN NOT NULL,
+    "disponivel" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "update_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "produto_pkey" PRIMARY KEY ("id")
 );
@@ -20,7 +32,7 @@ CREATE TABLE "pedido" (
     "tipo_pagamento" TEXT NOT NULL,
     "status" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "update_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "pedido_pkey" PRIMARY KEY ("id")
 );
@@ -31,9 +43,12 @@ CREATE TABLE "pedido_itens" (
     "id_produto" INTEGER NOT NULL,
     "quantidade" INTEGER NOT NULL,
     "valor_unitario" INTEGER NOT NULL,
-    "create_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "update_at" TIMESTAMP(3) NOT NULL
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "cliente_cpf_key" ON "cliente"("cpf");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "id_pedido_id_produto_unique" ON "pedido_itens"("id_pedido", "id_produto");

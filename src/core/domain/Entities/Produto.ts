@@ -2,14 +2,14 @@ export class Produto {
     id?: number;
     nome: string;
     descricao: string;
-    tipo: string;
+    categoria: string;
     valor: number;
     disponivel: boolean;
 
-    constructor({ nome, descricao, tipo, valor, disponivel}: typeof Produto.prototype){
+    constructor({ nome, descricao, categoria, valor, disponivel }: typeof Produto.prototype){
         this.nome = nome,
         this.descricao = descricao,
-        this.tipo = tipo,
+        this.categoria = categoria,
         this.valor = valor,
         this.disponivel = disponivel
     }

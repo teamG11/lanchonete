@@ -1,70 +1,227 @@
 {
 	"info": {
-		"_postman_id": "d714d55e-1b45-4797-8bd1-799c43500c74",
-		"name": "lanchonete",
+		"_postman_id": "c0da496f-8aca-4298-81ad-fd7fdcfc3ea5",
+		"name": "00 - Pós Tech Lanchonete",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25625342"
+		"_exporter_id": "13772924"
 	},
 	"item": [
 		{
-			"name": "CriarCliente",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"nome\":\"NomeTeste\",\n    \"cpf\":\"12345678909\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Criar Cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\":\"Nome Teste 2\",\n    \"cpf\":\"00011122233\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/cliente",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"cliente"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:7000/cliente/criar",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"cliente",
-						"criar"
-					]
+				{
+					"name": "Buscar Cliente",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/cliente/buscar/00011122233",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"cliente",
+								"buscar",
+								"00011122233"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "BuscarCliente",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "Criar Produto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Nome lanche 2\",\n    \"descricao\": \"Descrição produto 2\",\n    \"categoria\": \"lanche\",\n    \"valor\": 5990,\n    \"disponivel\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/produto",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"produto"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:7000/cliente/buscar/12345678909",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"cliente",
-						"buscar",
-						"12345678909"
-					]
+				{
+					"name": "Editar Produto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Nome lanche 2\",\n    \"descricao\": \"Descrição produto 2\",\n    \"categoria\": \"acompanhamento\",\n    \"valor\": 5990,\n    \"disponivel\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/produto/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"produto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Clientes - Todos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/produto/",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"produto",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Clientes - Categoria",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/produto/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"produto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Clientes - ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/produto/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"produto",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

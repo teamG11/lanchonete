@@ -1,5 +1,6 @@
 export enum CategoriaProduto {
-    bebida,
-    lanche,
-    porcao
+    lanche = "lanche",
+    acompanhamento = "acompanhamento",
+    bebida = "bebida",
+    sobremesa = "sobremesa",
 }

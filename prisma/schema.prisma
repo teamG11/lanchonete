@@ -27,9 +27,9 @@ model Produto {
     id          Int           @id @default(autoincrement())
     nome        String
     descricao   String
-    tipo        String
+    categoria   String
     valor       Int
-    disponivel  Boolean
+    disponivel  Boolean       @default(true)
     created_at  DateTime      @default(now())
     updated_at  DateTime      @default(now()) @updatedAt
     pedidoItens PedidoItens[]

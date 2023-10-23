@@ -2,19 +2,19 @@ import { Produto } from "@/core/domain/Entities/Produto";
 import { IProdutoRepository } from "@/core/domain/Repositories/IProdutoRepository";
 import { RegistroNaoEncontradoError } from "../../errors/RegistroNaoEncontradoError";
 
-interface BuscaProdutoParaEdicaoRequest {
+interface BuscaProdutoRequest {
 	id: number;
 }
 
-interface BuscaProdutoParaEdicaoResponse {
-	produto: Produto | null;
+interface BuscaProdutoResponse {
+	produto: Produto;
 }
 
-export class BuscaProdutoParaEdicaoUseCase {
+export class BuscaProdutoUseCase {
 
 	constructor(private produtoRepository: IProdutoRepository) { }
 
-	async executarAsync({ id }: BuscaProdutoParaEdicaoRequest): Promise<BuscaProdutoParaEdicaoResponse> {
+	async executarAsync({ id }: BuscaProdutoRequest): Promise<BuscaProdutoResponse> {
 		const produto = await this.produtoRepository.findByIdAsync(id);
 
 		if (!produto) {

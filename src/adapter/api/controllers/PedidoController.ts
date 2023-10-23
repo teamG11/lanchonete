@@ -1,6 +1,6 @@
 import PedidoRepository from "@/adapter/infrastructure/Repositories/PedidoRepository";
-import { CriaPedido } from "@/core/application/use-cases/pedido/CriaPedido";
-import { ValidaPedido } from "@/core/application/use-cases/pedido/ValidaPedido";
+import { CriaPedidoFactory } from "@/core/application/use-cases-factories/pedidos/CriaPedidoFactory";
+import { ValidaPedido } from "@/core/application/use-cases/pedidos/ValidaPedido";
 import { Request, Response } from "express";
 import { z } from "zod";
 
@@ -16,11 +16,10 @@ class PedidoController {
 		});
 
 		try {
-			const { id_cliente, valor_final, tipo_pagamento, status } =
-				createBodySchema.parse(dados);
+			const { id_cliente, valor_final, tipo_pagamento, status } = createBodySchema.parse(dados);
 
-			const pedidoRepository = new PedidoRepository();
-			const criaPedido = new CriaPedido(pedidoRepository);
+			const criaPedido = CriaPedidoFactory();
+
 			const pedido = await criaPedido.executarAsync({
 				id_cliente,
 				valor_final,

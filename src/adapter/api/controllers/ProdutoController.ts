@@ -1,5 +1,6 @@
-import { BuscaTodosProdutosFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutoFactory";
-import { BuscaProdutoParaEdicaoFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutoParaEdicaoFactory";
+import { BuscaProdutoFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutoFactory";
+import { BuscaProdutosPorCategoriaFactory } from "@/core/application/use-cases-factories/produtos/BuscaProdutosPorCategoriaFactory";
+import { BuscaTodosProdutosFactory } from "@/core/application/use-cases-factories/produtos/BuscaTodosProdutosFactory";
 import { CriaProdutoFactory } from "@/core/application/use-cases-factories/produtos/CriaProdutoFactory";
 import { EditaProdutoUseCaseFactory } from "@/core/application/use-cases-factories/produtos/EditaProdutoUseCaseFactory";
 import { RemoveProdutoFactory } from "@/core/application/use-cases-factories/produtos/RemoveProdutoFactory";
@@ -9,77 +10,105 @@ import { z } from "zod";
 
 class ProdutoController {
 
-	async incluir(request: Request, response: Response, next: NextFunction) {
+	async criar(request: Request, response: Response, next: NextFunction) {
 		try {
 			const createBodySchema = z.object({
 				nome: z.string().min(3).max(255),
 				descricao: z.string().min(3).max(255),
-				tipo: z.nativeEnum(CategoriaProduto).transform((value) => value.toString()),
+				categoria: z.nativeEnum(CategoriaProduto),
 				valor: z.number().positive(),
 				disponivel: z.boolean()
 			});
 
-			const { nome, descricao, tipo, valor, disponivel } = createBodySchema.parse(request.body);
+			const produtoToCreate = createBodySchema.parse(request.body);
 
 			const criaProdutoUseCase = CriaProdutoFactory();
-			await criaProdutoUseCase.executarAsync({ nome, descricao, tipo, valor, disponivel });
+			const { produto } = await criaProdutoUseCase.executarAsync(produtoToCreate);
 
-			return response.status(201).send();
+			return response.status(201).send(produto);
 		} catch (error) {
 			next(error);
 		}
-
 	}
 
-	async editar(request: Request, response: Response) {
-		const createBodySchema = z.object({
-			nome: z.string().min(3).max(255),
-			descricao: z.string().min(3).max(255),
-			tipo: z.nativeEnum(CategoriaProduto).transform((value) => value.toString()),
-			valor: z.number().positive(),
-			disponivel: z.boolean()
-		});
+	async editar(request: Request, response: Response, next: NextFunction) {
+		try {
+			const paramsSchema = z.object({ id: z.string().transform((value) => Number(value)) });
+			const { id } = paramsSchema.parse(request.params);
 
-		const { nome, descricao, tipo, valor, disponivel } = createBodySchema.parse(request.body);
+			const createBodySchema = z.object({
+				nome: z.string().min(3).max(255).optional(),
+				descricao: z.string().min(3).max(255).optional(),
+				categoria: z.nativeEnum(CategoriaProduto).optional(),
+				valor: z.number().positive().optional(),
+				disponivel: z.boolean().optional()
+			});
 
-		const editaProdutoUseCase = EditaProdutoUseCaseFactory();
-		await editaProdutoUseCase.executarAsync({ nome, descricao, tipo, valor, disponivel });
+			const produtoToUpdate = createBodySchema.parse(request.body);
 
-		return response.status(200).send();
+			const editaProdutoUseCase = EditaProdutoUseCaseFactory();
+			const { produto } = await editaProdutoUseCase.executarAsync({ id, ...produtoToUpdate });
+
+			return response.status(200).send(produto);
+		} catch (error) {
+			next(error);
+		}
 	}
 
-	async remove(request: Request, response: Response) {
-		const { id } = request.params;
+	async remove(request: Request, response: Response, next: NextFunction) {
+		try {
+			const paramsSchema = z.object({ id: z.string().transform((value) => Number(value)) });
+			const { id } = paramsSchema.parse(request.params);
 
-		const removeProdutoUseCase = RemoveProdutoFactory();
-		const produtos = await removeProdutoUseCase.executarAsync({ id: Number(id) });
+			const removeProdutoUseCase = RemoveProdutoFactory();
+			await removeProdutoUseCase.executarAsync({ id });
 
-		return response.status(200).json([
-			produtos
-		]);
+			return response.status(200).json();
+		} catch (error) {
+			next(error);
+		}
 	}
 
-	async obterPorId(request: Request, response: Response) {
-		const { id } = request.params;
+	async obterPorId(request: Request, response: Response, next: NextFunction) {
+		try {
+			const paramsSchema = z.object({ id: z.string().transform((value) => Number(value)) });
+			const { id } = paramsSchema.parse(request.params);
 
-		const buscaProdutoEdicaoUseCase = BuscaProdutoParaEdicaoFactory();
-		const produto = buscaProdutoEdicaoUseCase.executarAsync({ id: Number(id) });
+			const buscaProdutoUseCase = BuscaProdutoFactory();
+			const { produto } = await buscaProdutoUseCase.executarAsync({ id });
 
-		return response.status(200).json([
-			produto
-		]);
+			return response.status(200).json(produto);
+		} catch (error) {
+			next(error);
+		}
 	}
 
-	async obterTodos(request: Request, response: Response) {
-		const buscaTodosProdutosUseCase = BuscaTodosProdutosFactory();
-		const produtos = await buscaTodosProdutosUseCase.executarAsync();
+	async obterPorCategoria(request: Request, response: Response, next: NextFunction) {
+		try {
+			const paramsSchema = z.object({ categoria: z.nativeEnum(CategoriaProduto) });
+			const { categoria } = paramsSchema.parse(request.params);
 
-		return response.status(200).json([
-			produtos
-		]);
+			const buscaProdutoPorCategoria = BuscaProdutosPorCategoriaFactory();
+			const produtos = await buscaProdutoPorCategoria.executarAsync({ categoria});
+
+			return response.status(200).json([
+				produtos
+			]);
+		} catch (error) {
+			next(error);
+		}
 	}
 
+	async obterTodos(request: Request, response: Response, next: NextFunction) {
+		try {
+			const buscaTodosProdutosUseCase = BuscaTodosProdutosFactory();
+			const { produtos } = await buscaTodosProdutosUseCase.executarAsync();
 
+			return response.status(200).json({produtos: produtos});
+		} catch (error) {
+			next(error);
+		}
+	}
 
 }
 

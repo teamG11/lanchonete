@@ -8,6 +8,6 @@ export class RemoveProdutoUseCase {
 	constructor(private produtoRepository: IProdutoRepository) { }
 
 	async executarAsync({ id }: RemoveProdutoRequest): Promise<void> {
-		return await this.produtoRepository.remove(id);
+		return await this.produtoRepository.removeAsync(id);
 	}
 }
