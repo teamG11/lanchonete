@@ -15,7 +15,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "docker": "docker compose -f docker-compose.dev.yaml up --build --force-recreate"
+    "docker": "docker compose -f docker-compose.dev.yaml up --build --force-recreate",
+    "swagger": "npx swagger-jsdoc -d tooling/swagger/parameters.yaml -o tooling/swagger/swagger.json src/app.ts"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "@types/express": "4.17.19",
     "@types/node": "20.8.4",
     "@vitest/coverage-v8": "0.34.6",
+    "@types/swagger-jsdoc": "6.0.2",
     "eslint": "8.51.0",
     "prisma": "5.4.2",
     "tsup": "7.2.0",

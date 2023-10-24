@@ -221,7 +221,72 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"response": []
+		},
+		{
+			"name": "IncluirProduto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Produto 1\",\n    \"descricao\": \"Primeiro Produto\",\n    \"tipo\": 1,\n    \"valor\": 1000,\n    \"disponivel\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7000/produto/incluir",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BuscarProduto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7000/produto/1",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"produto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BuscarTodosProdutos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7000/produto",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"produto"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -1,0 +1,382 @@
+info:
+  title: Lanchonete API
+  version: 1.0.0
+  description: Projeto relacionado a especialização em Arquitetura de Software na FIAP
+host: localhost:7000
+servers:
+  - url: http://localhost:7000
+basePath: /
+openapi: '3.1.0'
+paths:
+  /cliente:
+    post:
+      description: Incluir um novo cliente
+      security:
+        - basicAuth: []
+      tags: [Cliente]
+      produces:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/Cliente'
+            example:
+              nome: João
+              sobrenome: Silva
+              cpf: "12345678901"
+      parameters:
+        - $ref: '#/parameters/nomeCliente'
+        - $ref: '#/parameters/sobrenomeCliente'
+        - $ref: '#/parameters/cpfForm'
+      responses:
+        '201':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Cliente'
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+  /cliente/{cpf}:
+    get:
+      description: Buscar um cliente cadastrado
+      security:
+        - basicAuth: []
+      tags: [Cliente]
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/cpfPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Cliente'
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+  /produto:
+    post:
+      description: Incluir um novo produto
+      security:
+        - basicAuth: []
+      tags: [Produto]
+      produces:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/Produto'
+            example:
+              nome: Lanche com hambúrguer
+              descricao: Lanche com hambúrguer, queijo, alface e tomate
+              valor: 500
+              categoria: lanche
+              disponivel: true
+      parameters:
+        - $ref: '#/parameters/nomeProduto'
+        - $ref: '#/parameters/descricaoProduto'
+        - $ref: '#/parameters/valorProduto'
+        - $ref: '#/parameters/tipoProduto'
+        - $ref: '#/parameters/disponivelProduto'
+      responses:
+        '201':
+          description: Sucesso
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+    get:
+      description: Buscar todos os produtos cadastrados
+      security:
+        - basicAuth: []
+      tags: [Produto]
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Produto'
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+    put:
+      description: Alterar um produto cadastrado
+      security:
+        - basicAuth: []
+      tags: [Produto]
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/nomeProduto'
+        - $ref: '#/parameters/descricaoProduto'
+        - $ref: '#/parameters/valorProduto'
+        - $ref: '#/parameters/tipoProduto'
+        - $ref: '#/parameters/disponivelProduto'
+      responses:
+        '200':
+          description: Sucesso
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+  /produto/{id}:
+    get:
+      description: Buscar um produto cadastrado
+      security:
+        - basicAuth: []
+      tags: [Produto]
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          description: ID do produto
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Produto'
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+    delete:
+      description: Excluir um produto cadastrado
+      security:
+        - basicAuth: []
+      tags: [Produto]
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          description: ID do produto
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Sucesso
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+  /produto/categoria/{tipoCategoria}:
+    get:
+      description: Buscar todos os produtos de uma categoria
+      security:
+        - basicAuth: []
+      tags: [Produto]
+      produces:
+        - application/json
+      parameters:
+        - name: tipoCategoria
+          description: Tipo da categoria
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Produto'
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+  /pedido:
+    post:
+      description: Incluir um novo pedido
+      security:
+        - basicAuth: []
+      tags: [Pedido]
+      produces:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/Pedido'
+            example:
+              id_cliente: 12345678901
+              valor_final: 500
+              tipo_pagamento: dinheiro
+              status: em andamento
+      parameters:
+        - $ref: '#/parameters/idCliente'
+        - $ref: '#/parameters/valorTotalPedido'
+        - $ref: '#/parameters/tipoPagamento'
+        - $ref: '#/parameters/statusPedido'
+      responses:
+        '201':
+          description: Sucesso
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+  /pedido/{id}:
+    get:
+      description: Buscar todos os pedidos cadastrados
+      security:
+        - basicAuth: []
+      tags: [Pedido]
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Pedido'
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
+parameters: 
+  nomeCliente:
+    name: nome
+    description: Nome do cliente
+    in: body
+    required: true
+    type: string
+  sobrenomeCliente:
+    name: sobrenome
+    description: Sobrenome do cliente
+    in: body
+    required: false
+    type: string
+  cpfForm:
+    name: cpf
+    description: CPF do cliente
+    in: body
+    required: true
+    type: string
+  cpfPath:
+    name: cpf
+    description: CPF do cliente
+    in: path
+    required: true
+    type: string
+  nomeProduto:
+    name: nome
+    description: Nome do produto
+    in: body
+    required: true
+    type: string
+  descricaoProduto:
+    name: descricao
+    description: Descrição do produto
+    in: body
+    required: true
+    type: string
+  valorProduto:
+    name: valor
+    description: Valor do produto em centavos
+    in: body
+    required: true
+    type: number
+  categoriaProduto:
+    name: categoria
+    description: categoria do produto (lanche, acompanhamento, bebida, sobremesa)
+    in: body
+    required: true
+    type: enum
+  disponivelProduto:
+    name: disponivel
+    description: Produto disponível para venda
+    in: body
+    required: true
+    type: string
+  idCliente:
+    name: idCliente
+    description: ID do cliente
+    in: body
+    required: true
+    type: string
+  valorTotalPedido:
+    name: valorTotal
+    description: Valor total do pedido em centavos
+    in: body
+    required: true
+    type: number
+  tipoPagamento:
+    name: tipoPagamento
+    description: Tipo do pagamento
+    in: body
+    required: true
+    type: string
+  statusPedido:
+    name: status
+    description: Status do pedido 
+    in: body
+    required: true
+    type: enum
+  
+definitions:
+  Cliente:
+    type: object
+    properties:
+      id: 
+        type: string
+      nome:
+        type: string
+      sobrenome:
+        type: string
+      cpf:
+        type: string
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+  Produto:
+    type: object
+    properties:
+      nome:
+        type: string
+      descricao:
+        type: string
+      valor:
+        type: number
+      categoria:
+        type: enum
+      disponivel:
+        type: boolean
+  Pedido:
+    type: object
+    properties:
+      id_cliente:
+        type: string
+      valor_final:
+        type: number
+      tipo_pagamento:
+        type: string
+      status:
+        type: enum
+tags: 
+  - Cliente
+  - Pedido
+  - Produto
