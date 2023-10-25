@@ -1,22 +1,22 @@
 {
 	"info": {
-		"_postman_id": "c0da496f-8aca-4298-81ad-fd7fdcfc3ea5",
+		"_postman_id": "7408e3ab-295c-42a2-b912-75b19e7e1aa1",
 		"name": "00 - Pós Tech Lanchonete",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "13772924"
+		"_exporter_id": "25625342"
 	},
 	"item": [
 		{
-			"name": "Clientes",
+			"name": "0 - Clientes",
 			"item": [
 				{
-					"name": "Criar Cliente",
+					"name": "0 - criar cliente",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\":\"Nome Teste 2\",\n    \"cpf\":\"00011122233\"\n}",
+							"raw": "{\n    \"nome\":\"Nome Teste 1\",\n    \"cpf\":\"00011122233\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -37,7 +37,7 @@
 					"response": []
 				},
 				{
-					"name": "Buscar Cliente",
+					"name": "1 - buscar Cliente",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -54,14 +54,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:7000/cliente/buscar/00011122233",
+							"raw": "localhost:7000/cliente/00011122233",
 							"host": [
 								"localhost"
 							],
 							"port": "7000",
 							"path": [
 								"cliente",
-								"buscar",
 								"00011122233"
 							]
 						}
@@ -71,16 +70,16 @@
 			]
 		},
 		{
-			"name": "Produtos",
+			"name": "1 - Produtos",
 			"item": [
 				{
-					"name": "Criar Produto",
+					"name": "0 - criar produto",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Nome lanche 2\",\n    \"descricao\": \"Descrição produto 2\",\n    \"categoria\": \"lanche\",\n    \"valor\": 5990,\n    \"disponivel\": true\n}",
+							"raw": "{\n    \"nome\": \"Nome lanche 1\",\n    \"descricao\": \"Descrição produto 1\",\n    \"categoria\": \"lanche\",\n    \"valor\": 5990,\n    \"disponivel\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -101,13 +100,13 @@
 					"response": []
 				},
 				{
-					"name": "Editar Produto",
+					"name": "1 - criar produto",
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Nome lanche 2\",\n    \"descricao\": \"Descrição produto 2\",\n    \"categoria\": \"acompanhamento\",\n    \"valor\": 5990,\n    \"disponivel\": true\n}",
+							"raw": "{\n    \"nome\": \"Nome lanche 2\",\n    \"descricao\": \"Descrição produto 2\",\n    \"categoria\": \"bebida\",\n    \"valor\": 987,\n    \"disponivel\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -115,21 +114,48 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:7000/produto/1",
+							"raw": "localhost:7000/produto",
 							"host": [
 								"localhost"
 							],
 							"port": "7000",
 							"path": [
-								"produto",
-								"1"
+								"produto"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Busca Clientes - Todos",
+					"name": "2 - editar produto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Nome lanche 1\",\n    \"descricao\": \"Descrição lanche editada\",\n    \"categoria\": \"lanche\",\n    \"valor\": 5990,\n    \"disponivel\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/produto/2",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"produto",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - buscar todos produtos",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -160,7 +186,7 @@
 					"response": []
 				},
 				{
-					"name": "Busca Clientes - Categoria",
+					"name": "4 - buscar produtos por categoria",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -177,21 +203,22 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:7000/produto/1",
+							"raw": "localhost:7000/produto/categoria/lanche",
 							"host": [
 								"localhost"
 							],
 							"port": "7000",
 							"path": [
 								"produto",
-								"1"
+								"categoria",
+								"lanche"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Busca Clientes - ID",
+					"name": "5 - buscar produtos por id",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -208,85 +235,71 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:7000/produto/1",
+							"raw": "localhost:7000/produto/2",
 							"host": [
 								"localhost"
 							],
 							"port": "7000",
 							"path": [
 								"produto",
-								"1"
+								"2"
 							]
 						}
 					},
 					"response": []
 				}
-			],
-			"response": []
+			]
 		},
 		{
-			"name": "IncluirProduto",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"nome\": \"Produto 1\",\n    \"descricao\": \"Primeiro Produto\",\n    \"tipo\": 1,\n    \"valor\": 1000,\n    \"disponivel\": true\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "2 - Pedidos",
+			"item": [
+				{
+					"name": "0 - criar pedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_cliente\":36,\n    \"valor_final\":7000000,\n    \"tipo_pagamento\":\"Mercado Pago\",\n    \"status\":\"em preparacao\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/pedido",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:7000/produto/incluir",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"produto"
-					]
+				{
+					"name": "1 - buscar pedido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/pedido/2",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "BuscarProduto",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:7000/produto/1",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"produto",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "BuscarTodosProdutos",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:7000/produto",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"produto"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	]
 }
