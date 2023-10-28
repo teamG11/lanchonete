@@ -1,6 +1,8 @@
 import PedidoRepository from "@/adapter/infrastructure/Repositories/PedidoRepository";
 import { CriaPedidoFactory } from "@/core/application/use-cases-factories/pedidos/CriaPedidoFactory";
 import { ValidaPedido } from "@/core/application/use-cases/pedidos/ValidaPedido";
+import { StatusPedido } from "@/core/domain/Enums/StatusPedido";
+import { TipoPagamento } from "@/core/domain/Enums/TipoPagamento";
 import { Request, Response } from "express";
 import { z } from "zod";
 
@@ -11,8 +13,8 @@ class PedidoController {
 		const createBodySchema = z.object({
 			id_cliente: z.number(),
 			valor_final: z.number(),
-			tipo_pagamento: z.string().min(3).max(255),
-			status: z.string().min(3).max(255),
+			tipo_pagamento: z.nativeEnum(TipoPagamento),
+			status:z.nativeEnum(StatusPedido),
 		});
 
 		try {

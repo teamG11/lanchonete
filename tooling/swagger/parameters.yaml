@@ -221,8 +221,8 @@ paths:
             example:
               id_cliente: 12345678901
               valor_final: 500
-              tipo_pagamento: dinheiro
-              status: em andamento
+              tipo_pagamento: pix
+              status: recebido
       parameters:
         - $ref: '#/parameters/idCliente'
         - $ref: '#/parameters/valorTotalPedido'
@@ -325,13 +325,13 @@ parameters:
     type: number
   tipoPagamento:
     name: tipoPagamento
-    description: Tipo do pagamento
+    description: Tipo do pagamento (pix, cartao debito, cartao credito)
     in: body
     required: true
-    type: string
+    type: enum
   statusPedido:
     name: status
-    description: Status do pedido 
+    description: Status do pedido (recebido, em preparacao, pronto, finalizado)
     in: body
     required: true
     type: enum
@@ -373,7 +373,7 @@ definitions:
       valor_final:
         type: number
       tipo_pagamento:
-        type: string
+        type: enum
       status:
         type: enum
 tags: 
