@@ -38,11 +38,8 @@ class PedidoController {
 	}
 
 	async validarPedido(request: Request, response: Response) {
-		const paramsSchema = z.object({
-			pedidoId: z.number(),
-		});
-
 		try {
+			const paramsSchema = z.object({ pedidoId: z.string().transform((value) => Number(value)) });
 			const { pedidoId } = paramsSchema.parse(request.params);
 
 			const pedidoRepository = new PedidoRepository();

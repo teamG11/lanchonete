@@ -5,19 +5,20 @@ services:
     build:
       context: .
       dockerfile: tooling/docker/Dockerfile
-      target: production
+      target: dev
     volumes:
-      - .:/usr/src/app
+      - ./:/usr/src/app
     environment:
       PORT: 7000
-      NODE_ENV: production
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lanchonete?schema=public
+      NODE_ENV: dev
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/lanchonete?schema=public
     ports:
       - 7000:7000
+    command: sh -c "npx prisma migrate deploy && npm run dev"
     depends_on:
-      - postgres
+      - db
 
-  postgres:
+  db:
     image: postgres:latest
     restart: always
     environment:
@@ -26,6 +27,16 @@ services:
       POSTGRES_DB: lanchonete
     ports:
       - 5432:5432
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./tooling/swagger/swagger.json:/openapi.json
+    environment:
+      SWAGGER_JSON: /openapi.json
 
 networks:
     default:

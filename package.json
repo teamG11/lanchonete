@@ -15,7 +15,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "docker": "docker compose -f docker-compose.dev.yaml up --build --force-recreate",
+    "docker": "docker compose up --build --force-recreate",
     "swagger": "npx swagger-jsdoc -d tooling/swagger/parameters.yaml -o tooling/swagger/swagger.json src/app.ts"
   },
   "repository": {
