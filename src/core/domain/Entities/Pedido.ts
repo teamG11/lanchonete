@@ -2,15 +2,15 @@ export class Pedido {
   id?: number;
 
   id_cliente: number;
-  valor_final: number;
-  tipo_pagamento: string;
-  status: string;
+  valor_final: number | null;
+  tipo_pagamento: string | null;
+  status: string | null;
 
   constructor(data: {
     id_cliente: number;
-    valor_final: number;
-    tipo_pagamento: string;
-    status: string;
+    valor_final: number | null;
+    tipo_pagamento: string | null;
+    status: string | null;
   }) {
     this.id_cliente = data.id_cliente;
     this.valor_final = data.valor_final;

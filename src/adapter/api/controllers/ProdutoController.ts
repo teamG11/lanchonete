@@ -55,7 +55,7 @@ class ProdutoController {
 		}
 	}
 
-	async remove(request: Request, response: Response, next: NextFunction) {
+	async remover(request: Request, response: Response, next: NextFunction) {
 		try {
 			const paramsSchema = z.object({ id: z.string().transform((value) => Number(value)) });
 			const { id } = paramsSchema.parse(request.params);
@@ -69,7 +69,7 @@ class ProdutoController {
 		}
 	}
 
-	async obterPorId(request: Request, response: Response, next: NextFunction) {
+	async buscarPorId(request: Request, response: Response, next: NextFunction) {
 		try {
 			const paramsSchema = z.object({ id: z.string().transform((value) => Number(value)) });
 			const { id } = paramsSchema.parse(request.params);
@@ -83,7 +83,7 @@ class ProdutoController {
 		}
 	}
 
-	async obterPorCategoria(request: Request, response: Response, next: NextFunction) {
+	async buscarPorCategoria(request: Request, response: Response, next: NextFunction) {
 		try {
 			const paramsSchema = z.object({ categoria: z.nativeEnum(CategoriaProduto) });
 			const { categoria } = paramsSchema.parse(request.params);
@@ -99,7 +99,7 @@ class ProdutoController {
 		}
 	}
 
-	async obterTodos(request: Request, response: Response, next: NextFunction) {
+	async buscarTodos(request: Request, response: Response, next: NextFunction) {
 		try {
 			const buscaTodosProdutosUseCase = BuscaTodosProdutosFactory();
 			const { produtos } = await buscaTodosProdutosUseCase.executarAsync();

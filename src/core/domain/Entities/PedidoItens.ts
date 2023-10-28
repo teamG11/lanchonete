@@ -1,21 +1,15 @@
-import { Pedido } from './Pedido';
-import { Produto } from './Produto';
-
 export class PedidoItens {
-  pedidoId: Pedido;
-  produtoId: Produto;
+  id_pedido: number;
+  id_produto: number;
   quantidade: number;
-  valorUnitario: number;
 
   constructor({
-    pedidoId,
-    produtoId,
+    id_pedido,
+    id_produto,
     quantidade,
-    valorUnitario,
   }: typeof PedidoItens.prototype) {
-    this.pedidoId = pedidoId;
-    this.produtoId = produtoId;
+    this.id_pedido = id_pedido;
+    this.id_produto = id_produto;
     this.quantidade = quantidade;
-    this.valorUnitario = valorUnitario;
   }
 }

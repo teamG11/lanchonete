@@ -392,10 +392,7 @@
                 "$ref": "#/definitions/Pedido"
               },
               "example": {
-                "id_cliente": 12345678901,
-                "valor_final": 500,
-                "tipo_pagamento": "pix",
-                "status": "recebido"
+                "id_cliente": 12345678901
               }
             }
           }
@@ -403,15 +400,6 @@
         "parameters": [
           {
             "$ref": "#/parameters/idCliente"
-          },
-          {
-            "$ref": "#/parameters/valorTotalPedido"
-          },
-          {
-            "$ref": "#/parameters/tipoPagamento"
-          },
-          {
-            "$ref": "#/parameters/statusPedido"
           }
         ],
         "responses": {
@@ -454,6 +442,106 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Erro de validação"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      },
+      "put": {
+        "description": "Alterar um pedido cadastrado",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "tags": [
+          "Pedido"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Pedido"
+              },
+              "example": {
+                "tipo_pagamento": "pix"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/parameters/valorTotalPedido"
+          },
+          {
+            "$ref": "#/parameters/tipoPagamento"
+          },
+          {
+            "$ref": "#/parameters/statusPedido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          },
+          "400": {
+            "description": "Erro de validação"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/pedido/item": {
+      "post": {
+        "description": "Adicionar item a um pedido",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "tags": [
+          "Pedido"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Pedido"
+              },
+              "example": {
+                "id_pedido": 1,
+                "id_produto": 1,
+                "quantidade": 2
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/parameters/idPedido"
+          },
+          {
+            "$ref": "#/parameters/idProduto"
+          },
+          {
+            "$ref": "#/parameters/quantidadeItem"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Sucesso"
           },
           "400": {
             "description": "Erro de validação"
@@ -536,25 +624,46 @@
       "required": true,
       "type": "string"
     },
+    "idPedido": {
+      "name": "id_pedido",
+      "description": "ID do pedido",
+      "in": "body",
+      "required": true,
+      "type": "string"
+    },
+    "idProduto": {
+      "name": "id_produto",
+      "description": "ID do produto",
+      "in": "body",
+      "required": true,
+      "type": "string"
+    },
     "valorTotalPedido": {
-      "name": "valorTotal",
+      "name": "valor_total",
       "description": "Valor total do pedido em centavos",
+      "in": "body",
+      "required": false,
+      "type": "number"
+    },
+    "quantidadeItem": {
+      "name": "quantidade_item",
+      "description": "Quantidade de itens pedidos",
       "in": "body",
       "required": true,
       "type": "number"
     },
     "tipoPagamento": {
-      "name": "tipoPagamento",
+      "name": "tipo_pagamento",
       "description": "Tipo do pagamento (pix, cartao debito, cartao credito)",
       "in": "body",
-      "required": true,
+      "required": false,
       "type": "enum"
     },
     "statusPedido": {
       "name": "status",
       "description": "Status do pedido (recebido, em preparacao, pronto, finalizado)",
       "in": "body",
-      "required": true,
+      "required": false,
       "type": "enum"
     }
   },

@@ -1,11 +1,7 @@
 import { Pedido } from "@/core/domain/Entities/Pedido";
 import { IPedidoRepository } from "@/core/domain/Repositories/IPedidoRepository";
 
-interface ValidaPedidoDados {
-    pedidoId: number;
-}
-
-export class ValidaPedido {
+export class BuscaPedido {
     constructor(private pedidoRepository: IPedidoRepository) { }
 
     async executarAsync( pedidoId: number ): Promise<Pedido | null> {

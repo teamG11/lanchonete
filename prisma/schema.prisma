@@ -41,9 +41,9 @@ model Pedido {
     id             Int           @id @default(autoincrement())
     id_cliente     Int
     cliente        Cliente       @relation(fields: [id_cliente], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    valor_final    Int
-    tipo_pagamento String
-    status         String
+    valor_final    Int?
+    tipo_pagamento String?
+    status         String?
     created_at     DateTime      @default(now())
     updated_at     DateTime      @default(now()) @updatedAt
     pedidoItens    PedidoItens[]
