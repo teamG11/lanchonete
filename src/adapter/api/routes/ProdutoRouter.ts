@@ -5,10 +5,10 @@ const produtoRouter = Router();
 
 produtoRouter.post("/", new ProdutoController().criar);
 produtoRouter.put("/:id", new ProdutoController().editar);
-produtoRouter.delete("/:id", new ProdutoController().remove);
+produtoRouter.delete("/:id", new ProdutoController().remover);
 
-produtoRouter.get("", new ProdutoController().obterTodos);
-produtoRouter.get("/:id", new ProdutoController().obterPorId);
-produtoRouter.get("/categoria/:categoria", new ProdutoController().obterPorCategoria);
+produtoRouter.get("", new ProdutoController().buscarTodos);
+produtoRouter.get("/:id", new ProdutoController().buscarPorId);
+produtoRouter.get("/categoria/:categoria", new ProdutoController().buscarPorCategoria);
 
 export { produtoRouter };

@@ -260,7 +260,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id_cliente\":36,\n    \"valor_final\":7000000,\n    \"tipo_pagamento\":\"Mercado Pago\",\n    \"status\":\"em preparacao\"\n}",
+							"raw": "{\n    \"id_cliente\":1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -281,19 +281,131 @@
 					"response": []
 				},
 				{
-					"name": "1 - buscar pedido",
+					"name": "1 - adicionar Lanche ao pedido",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_pedido\": 1,\n    \"id_produto\": 1,\n    \"quantidade\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:7000/pedido/2",
+							"raw": "localhost:7000/pedido/item",
 							"host": [
 								"localhost"
 							],
 							"port": "7000",
 							"path": [
 								"pedido",
-								"2"
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - adicionar bebida ao pedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_pedido\": 1,\n    \"id_produto\": 2,\n    \"quantidade\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/pedido/item",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - atualizar forma de pagamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"tipo_pagamento\": \"pix\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/pedido/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4 - atualizar status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"status\": \"recebido\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/pedido/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5 - buscar pedido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/pedido/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"1"
 							]
 						}
 					},
