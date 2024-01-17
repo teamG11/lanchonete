@@ -250,6 +250,31 @@ paths:
           description: Erro de validação
         '500':
           description: Erro interno
+  /pedido/{id}/status-pagamento:
+    get:
+      description: Buscar status de pagamento de um pedido cadastrado
+      security:
+        - basicAuth: []
+      tags: [Pedido]
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          description: ID do produto
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Erro de validação
+        '500':
+          description: Erro interno
     put:
       description: Alterar um pedido cadastrado
       security:

@@ -1,4 +1,5 @@
 import { Pedido } from "@/core/domain/Entities/Pedido";
+import { StatusPagamento } from "@/core/domain/Enums/StatusPagamento";
 import { IPedidoRepository } from "@/core/domain/Repositories/IPedidoRepository";
 export class CriaPedido {
   constructor(private pedidoRepository: IPedidoRepository) {}
@@ -9,6 +10,7 @@ export class CriaPedido {
       valor_final: null,
       tipo_pagamento: null,
       status: null,
+      status_pagamento: StatusPagamento.aguardando,
     });
 
     const pedidoSalvo = await this.pedidoRepository.createAsync(pedido);

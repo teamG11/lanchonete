@@ -124,6 +124,31 @@ class PedidoController {
             return response.status(500).send();
         }
     }
+
+    async buscarStatusPagamento(request: Request, response: Response) {
+        try {
+            const paramsSchema = z.object({
+                pedidoId: z.string().transform((value) => Number(value)),
+            });
+            const { pedidoId } = paramsSchema.parse(request.params);
+
+            const buscarPedido = BuscarPedidoFactory();
+
+            const pedido = await buscarPedido.executarAsync(pedidoId);
+
+            if (pedido) {
+                return response.status(200).json(pedido.status_pagamento);
+            } else {
+                return response.status(404).send("Pedido não encontrado.");
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                return response.status(400).send(error.message);
+            }
+
+            return response.status(500).send();
+        }
+    }
 }
 
 export { PedidoController };

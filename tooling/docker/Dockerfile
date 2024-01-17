@@ -1,11 +1,14 @@
 FROM node:current-alpine as dev
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
+COPY package-lock.json ./
+COPY tsconfig.json ./
+COPY ./prisma ./prisma
+
 RUN npm install
-RUN npm install prisma
 
 COPY . ./
 
-RUN npm run build
+CMD ["npm", "start"]
