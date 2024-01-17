@@ -410,6 +410,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "6 - buscar status pagamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7000/pedido/1/status-pagamento",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"1",
+								"status-pagamento"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
