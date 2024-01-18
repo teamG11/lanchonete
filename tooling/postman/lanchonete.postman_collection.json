@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7408e3ab-295c-42a2-b912-75b19e7e1aa1",
+		"_postman_id": "a867b95c-b860-4f59-9d2b-7fbe919d8edc",
 		"name": "00 - Pós Tech Lanchonete",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25625342"
+		"_exporter_id": "5352626"
 	},
 	"item": [
 		{
@@ -417,7 +417,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:7000/pedido/1/status-pagamento",
+							"raw": "http://localhost:7000/pedido/1/status-pagamento",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
@@ -426,6 +427,27 @@
 								"pedido",
 								"1",
 								"status-pagamento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "07 - buscar pedidos nao finalizados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7000/pedido/status/nao-finalizados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"status",
+								"nao-finalizados"
 							]
 						}
 					},

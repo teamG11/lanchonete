@@ -60,4 +60,22 @@ export default class PedidoRepository implements IPedidoRepository {
 
     return existePedido;
   }
+
+  async findAllNaoFinalizadosAsync(): Promise<PedidoDomain[]> {
+    const pedido = await prisma.pedido.findMany({
+      where:{
+        NOT:{
+            status:{
+            equals: 'finalizado'
+            }
+        },  
+      },
+      orderBy: [
+        {
+          created_at:'asc'
+        }
+      ]
+    });
+    return pedido;
+  }
 }

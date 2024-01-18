@@ -6,4 +6,5 @@ export interface IPedidoRepository {
     updateAsync(pedido: Pedido): Promise<Pedido>;
     findByIdAsync(pedidoId: number): Promise<Pedido | null>;
     addItemAsync(item: PedidoItens): Promise<Pedido>;
+    findAllNaoFinalizadosAsync(): Promise<Pedido[]>;
 }

@@ -10,5 +10,6 @@ pedidoRouter.post("/item", pedidoController.adicionarItem);
 pedidoRouter.get("/:pedidoId", pedidoController.buscarPorId);
 pedidoRouter.put("/:pedidoId", pedidoController.atualizar);
 pedidoRouter.get("/:pedidoId/status-pagamento", pedidoController.buscarStatusPagamento)
+pedidoRouter.get("/status/nao-finalizados", pedidoController.buscarTodosPedidosNaoFinalizados)
 
 export { pedidoRouter };
