@@ -1,14 +1,15 @@
 import { AdicionarItemPedidoFactory } from "@/core/application/use-cases-factories/pedidos/AdicionarItemPedidoFactory";
 import { AtualizarPedidoFactory } from "@/core/application/use-cases-factories/pedidos/AtualizarPedidoFactory";
 import { BuscarPedidoFactory } from "@/core/application/use-cases-factories/pedidos/BuscarPedidoFactory";
+import { BuscarTodosPedidosNaoFinalizadosFactory } from "@/core/application/use-cases-factories/pedidos/BuscarTodosPedidosNaoFinalizadosFactory";
 import { CriaPedidoFactory } from "@/core/application/use-cases-factories/pedidos/CriaPedidoFactory";
 import { StatusPedido } from "@/core/domain/Enums/StatusPedido";
 import { TipoPagamento } from "@/core/domain/Enums/TipoPagamento";
-import { Request, Response } from "express";
+import { NextFunction,Request, Response } from "express";
 import { z } from "zod";
 
 class PedidoController {
-    async criar(request: Request, response: Response) {
+    async criar(request: Request, response: Response, next: NextFunction) {
         try {
             const dados = request.body;
 
@@ -32,7 +33,7 @@ class PedidoController {
         }
     }
 
-    async atualizar(request: Request, response: Response) {
+    async atualizar(request: Request, response: Response, next: NextFunction) {
         try {
             const paramsSchema = z.object({
                 pedidoId: z.string().transform((value) => Number(value)),
@@ -68,7 +69,7 @@ class PedidoController {
         }
     }
 
-    async adicionarItem(request: Request, response: Response) {
+    async adicionarItem(request: Request, response: Response, next: NextFunction) {
         try {
             const dados = request.body;
 
@@ -100,7 +101,7 @@ class PedidoController {
         }
     }
 
-    async buscarPorId(request: Request, response: Response) {
+    async buscarPorId(request: Request, response: Response, next: NextFunction) {
         try {
             const paramsSchema = z.object({
                 pedidoId: z.string().transform((value) => Number(value)),
@@ -116,6 +117,46 @@ class PedidoController {
             } else {
                 return response.status(404).send("Pedido não encontrado.");
             }
+        } catch (error) {
+            if (error instanceof Error) {
+                return response.status(400).send(error.message);
+            }
+
+            return response.status(500).send();
+        }
+    }
+
+    async buscarStatusPagamento(request: Request, response: Response, next: NextFunction) {
+        try {
+            const paramsSchema = z.object({
+                pedidoId: z.string().transform((value) => Number(value)),
+            });
+            const { pedidoId } = paramsSchema.parse(request.params);
+
+            const buscarPedido = BuscarPedidoFactory();
+
+            const pedido = await buscarPedido.executarAsync(pedidoId);
+
+            if (pedido) {
+                return response.status(200).json(pedido.status_pagamento);
+            } else {
+                return response.status(404).send("Pedido não encontrado.");
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                return response.status(400).send(error.message);
+            }
+
+            return response.status(500).send();
+        }
+    }
+
+    async buscarTodosPedidosNaoFinalizados(request: Request, response: Response, next: NextFunction) {
+        try {
+            const buscarTodosPedidosNaoFinalizados= BuscarTodosPedidosNaoFinalizadosFactory();
+            const {pedidos} = await buscarTodosPedidosNaoFinalizados.executarAsync();
+            return response.status(200).json({ pedidos: pedidos });
+
         } catch (error) {
             if (error instanceof Error) {
                 return response.status(400).send(error.message);

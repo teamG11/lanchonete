@@ -417,7 +417,7 @@
     },
     "/pedido/{id}": {
       "get": {
-        "description": "Buscar todos os pedidos cadastrados",
+        "description": "Buscar um pedido cadastrado",
         "security": [
           {
             "basicAuth": []
@@ -428,6 +428,15 @@
         ],
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID do pedido",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
@@ -500,7 +509,7 @@
         }
       }
     },
-    "/pedido/item": {
+   "/pedido/item": {
       "post": {
         "description": "Adicionar item a um pedido",
         "security": [
@@ -551,7 +560,85 @@
           }
         }
       }
-    }
+    },
+    "/pedido/{id}/status-pagamento": {
+      "get": {
+        "description": "Buscar o status do pagamento de um pedido cadastrado",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "tags": [
+          "Pedido"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID do pedido",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "description": "status-pagamento"
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de validação"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+   },
+   "/pedido/status/nao-finalizados": {
+      "get": {
+        "description": "buscar todos os pedidos retornando eles com a ordenação de status (Pronto, Em preparação, Recebido), ordenados os mais antigos primeiros e desconsiderando os Finalizados",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "tags": [
+          "Pedido"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Pedido"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de validação"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+   }
   },
   "parameters": {
     "nomeCliente": {
