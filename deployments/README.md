@@ -19,13 +19,13 @@ Passo a passo para construir localmente o ambiente da aplicação da lanchonete 
 5. Acessar as informações do cluster do minikube `kubectl cluster-info`
 
 ## Realizar o deploy das metricas do Kubernetes
-1. Executar `kubectl apply -f deployments/metrics/metrics.yaml`
+1. Criar todos os recursos referentes as metricas `kubectl apply -f deployments/metrics/`
 2. Verificar metricas do cluster `kubectl top nodes`
 
 ## Realizar o deploment do banco de dados
-1.
-2.
-3.
+1. Criar namespace para o database `kubectl create namespace lanchonete`
+2. Criar todos os recursos referentes ao banco de dados `kubectl apply -f deployments/database/`
+3. Verificar se o database está funcionando sem erros `kubectl get pods -n lanchonete`
 
 ## Realizar deployment da aplicação
 1.

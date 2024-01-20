@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+  namespace: lanchonete
+spec:
+    ports:
+    - name: postgres
+      port: 5432
+      nodePort: 30432
+    type: NodePort
+    selector:
+      app: postgres
