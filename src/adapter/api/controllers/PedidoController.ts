@@ -69,6 +69,39 @@ class PedidoController {
         }
     }
 
+  async atualizarStatusPedido(request: Request, response: Response, next: NextFunction) {
+    try {
+      const paramsSchema = z.object({
+        pedidoId: z.string().transform((value) => Number(value)),
+      });
+      const { pedidoId } = paramsSchema.parse(request.params);
+
+      const dados = request.body;
+
+      const updateStatusSchema = z.object({
+        status: z.nativeEnum(StatusPedido),
+      });
+
+      const { status } = updateStatusSchema.parse(dados);
+
+      const atualizarPedidoFactory = AtualizarPedidoFactory();
+      const pedido = await atualizarPedidoFactory.executarAsync(
+        pedidoId,
+        null,
+        null,
+        status
+      );
+
+      return response.status(201).json(pedido);
+    } catch (error) {
+      if (error instanceof Error) {
+        return response.status(400).send(error.message);
+      }
+
+      return response.status(500).send();
+    }
+  }
+
     async adicionarItem(request: Request, response: Response, next: NextFunction) {
         try {
             const dados = request.body;
@@ -156,7 +189,7 @@ class PedidoController {
             const buscarTodosPedidosNaoFinalizados= BuscarTodosPedidosNaoFinalizadosFactory();
             const {pedidos} = await buscarTodosPedidosNaoFinalizados.executarAsync();
             return response.status(200).json({ pedidos: pedidos });
-
+            
         } catch (error) {
             if (error instanceof Error) {
                 return response.status(400).send(error.message);

@@ -24,6 +24,17 @@ export default class PedidoRepository implements IPedidoRepository {
     return pedidoAtualizado;
   }
 
+  async updateStatusAsync(pedidoId: number, novoStatus: string): Promise<PedidoDomain> {
+    const pedidoAtualizado = await prisma.pedido.update({
+      where: { id: pedidoId },
+      data: { 
+        status: novoStatus
+      },
+    });
+
+    return pedidoAtualizado;
+  }
+
   async findByIdAsync(id: number): Promise<PedidoDomain | null> {
     return prisma.pedido.findUnique({
       where: { id },
