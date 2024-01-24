@@ -2,11 +2,11 @@
 import express from "express";
 import cors from "cors";
 
-import { clienteRouter } from "./adapter/api/routes/ClienteRouter";
-import { produtoRouter } from "./adapter/api/routes/ProdutoRouter";
-import { pedidoRouter } from "./adapter/api/routes/PedidoRouter";
+import { clienteRouter } from "./Infrastructure/api/routes/ClienteRouter";
+import { produtoRouter } from "./Infrastructure/api/routes/ProdutoRouter";
+import { pedidoRouter } from "./Infrastructure/api/routes/PedidoRouter";
 
-import { errorMiddleware } from "./adapter/api/middlewares/error";
+import { errorMiddleware } from "./Infrastructure/api/middlewares/error";
 
 const app = express();
 

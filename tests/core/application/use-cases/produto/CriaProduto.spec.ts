@@ -1,17 +1,19 @@
-import { ProdutoTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ProdutoTestRepository';
-import { RegistroDuplicadoError } from '@/core//application/errors/RegistroDuplicadoError';
-import { CriaProdutoUseCase } from '@/core/application/use-cases/produtos/CriaProdutoUseCase';
-import { Produto } from '@/core/domain/Entities/Produto';
-import { CategoriaProduto } from '@/core/domain/Enums/CategoriaProduto';
+import { ProdutoTestRepository } from '@/Infrastructure/drivers/Repositories/TestsRepositories/ProdutoTestRepository';
+import { RegistroDuplicadoError } from '@/Application/errors/RegistroDuplicadoError';
+import { CriaProdutoUseCase } from '@/Application/use-cases/produtos/CriaProdutoUseCase';
+import { Produto } from '@/Domain/Entities/Produto';
+import { CategoriaProduto } from '@/Domain/Enums/CategoriaProduto';
 import { beforeEach, describe, expect, it } from 'vitest';
+import ProdutoGateway, { IProdutoGateway } from '@/Interfaces/Gataways/ProdutoGateway';
 
-let produtoRepository: ProdutoTestRepository;
+let produtoGateway: IProdutoGateway;
 let useCase: CriaProdutoUseCase;
 
 describe('CriaProduto use case', () => {
 	beforeEach(() => {
-		produtoRepository = new ProdutoTestRepository();
-		useCase = new CriaProdutoUseCase(produtoRepository);
+		var produtoRepository = new ProdutoTestRepository();
+		produtoGateway = new ProdutoGateway(produtoRepository);
+		useCase = new CriaProdutoUseCase(produtoGateway);
 	})
 
 	it('Deve permitir cadastrar produto', async () => {

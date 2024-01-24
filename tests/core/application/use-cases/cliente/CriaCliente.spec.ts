@@ -1,15 +1,17 @@
-import { ClienteTestRepository } from '@/adapter/infrastructure/Repositories/TestsRepositories/ClienteTestRepository';
-import { RegistroDuplicadoError } from '@/core/application/errors/RegistroDuplicadoError';
-import { CriaClienteUseCase } from '@/core/application/use-cases/clientes/CriaClienteUseCase';
+import { ClienteTestRepository } from '@/Infrastructure/drivers/Repositories/TestsRepositories/ClienteTestRepository';
+import { RegistroDuplicadoError } from '@/Application/errors/RegistroDuplicadoError';
+import { CriaClienteUseCase } from '@/Application/use-cases/clientes/CriaClienteUseCase';
 import { beforeEach, describe, expect, it } from 'vitest';
+import ClienteGateway from '@/Interfaces/Gataways/ClienteGateway';
 
-let clienteRepository: ClienteTestRepository;
 let useCase: CriaClienteUseCase;
+let clienteGateway: ClienteGateway;
 
 describe('CriaCliente use case', () => {
 	beforeEach(() => {
-		clienteRepository = new ClienteTestRepository();
-		useCase = new CriaClienteUseCase(clienteRepository);
+		var clienteRepository = new ClienteTestRepository();
+		clienteGateway = new ClienteGateway(clienteRepository);
+		useCase = new CriaClienteUseCase(clienteGateway);
 	})
 
 	it('Deve permitir cadastrar cliente', async () => {
