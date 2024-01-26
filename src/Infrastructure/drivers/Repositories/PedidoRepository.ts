@@ -11,7 +11,7 @@ export default class PedidoRepository implements IPedidoRepository {
   }
 
   async updateAsync(data: PedidoDomain): Promise<PedidoDomain> {
-
+    
     const pedidoAtualizado = await prisma.pedido.update({
       where: { id: data.id },
       data: {
@@ -19,6 +19,17 @@ export default class PedidoRepository implements IPedidoRepository {
         valor_final: data.valor_final,
         tipo_pagamento: data.tipo_pagamento,
         status: data.status,
+      },
+    });
+
+    return pedidoAtualizado;
+  }
+
+  async updateStatusAsync(pedidoId: number, novoStatus: string): Promise<PedidoDomain> {
+    const pedidoAtualizado = await prisma.pedido.update({
+      where: { id: pedidoId },
+      data: {
+        status: novoStatus,
       },
     });
 
@@ -66,10 +77,10 @@ export default class PedidoRepository implements IPedidoRepository {
     const pedido = await prisma.pedido.findMany({
       where:{
         NOT:{
-            status:{
+          status:{
             equals: 'finalizado'
-            }
-        },  
+          }
+        },
       },
       orderBy: [
         {
