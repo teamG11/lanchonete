@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a867b95c-b860-4f59-9d2b-7fbe919d8edc",
+		"_postman_id": "091af7cb-97a7-4474-9703-8f043143d450",
 		"name": "00 - Pós Tech Lanchonete",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "5352626"
+		"_exporter_id": "11560081"
 	},
 	"item": [
 		{
@@ -372,6 +372,90 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n   \"status\": \"recebido\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/pedido/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.1 - Atualizar status para \"em preparacao\"",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"status\": \"em preparacao\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/pedido/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.2 - Atualizar status para \"pronto\"",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"status\": \"pronto\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/pedido/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"pedido",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.3 - Atualizar status para \"finalizado\"",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"status\": \"finalizado\" \n}",
 							"options": {
 								"raw": {
 									"language": "json"

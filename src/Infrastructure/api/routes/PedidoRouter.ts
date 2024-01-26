@@ -11,6 +11,7 @@ pedidoRouter.post("", (req, res, next) => { pedidoController.criar(req, res, nex
 pedidoRouter.post("/item", (req, res, next) => { pedidoController.adicionarItem(req, res, next); });
 pedidoRouter.get("/:pedidoId", (req, res, next) => { pedidoController.buscarPorId(req, res, next); });
 pedidoRouter.put("/:pedidoId", (req, res, next) => { pedidoController.atualizar(req, res, next); });
+pedidoRouter.put("/:pedidoId/status", (req, res, next) => { pedidoController.atualizarStatusPedido(req, res, next); });
 pedidoRouter.get("/:pedidoId/status-pagamento", (req, res, next) => { pedidoController.buscarStatusPagamento(req, res, next); });
 pedidoRouter.get("/status/nao-finalizados", (req, res, next) => { pedidoController.buscarTodosPedidosNaoFinalizados(req, res, next); });
 
