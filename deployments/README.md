@@ -28,6 +28,9 @@ Passo a passo para construir localmente o ambiente da aplicação da lanchonete 
 3. Verificar se o database está funcionando sem erros `kubectl get pods -n lanchonete`
 
 ## Realizar deployment da aplicação
-1.
-2.
-3.
+1. Criar todos os recursos referentes a API `kubectl apply -f deployments/app/`
+2. Verficar se a aplicação está funcionando sem erros `kubectl get pods -n lanchonete`
+
+## Conectar na aplicação via port-forward e enviar requests
+1. Executar `kubectl port-forward -n lanchonete services/app 7000:80`
+2. Utilizar a collection do [postman](https://github.com/teamG11/lanchonete/blob/main/tooling/postman/lanchonete.postman_collection.json) para enviar requests a aplicação (seguir a ordem numérica das requests).
