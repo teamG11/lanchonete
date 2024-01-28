@@ -37,6 +37,6 @@ Para realizar o build e o push da [imagem de produção](https://hub.docker.com/
 3. Executar `docker build --no-cache -f Dockerfile --target production -t leoeareis/lanchonete-app:latest .`
 4. Executar `docker push leoeareis/lanchonete-app:latest`
 
-## Deployment
+## Deployment no Kubernetes via minikube
 
-- Seguir o passo a passo presente no em [/deployments/README.md](https://github.com/teamG11/lanchonete/tree/main/deployments) 
+- Seguir o passo a passo presente em [/deployments/README.md](https://github.com/teamG11/lanchonete/tree/main/deployments) 
