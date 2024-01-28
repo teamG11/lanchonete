@@ -18,6 +18,7 @@ Projeto relacionado a especialização em Arquitetura de Software na FIAP
 ![Diagrama](docs/resources/lanchonete.svg)
 
 ## Estruturação da infra-estrutura
+[Video explicativo arquitetura](https://youtu.be/46p-sr783jQ)
 ![Diagrama](docs/resources/arquitetura-eks.svg)
 
 ## Quick-start
