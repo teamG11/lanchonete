@@ -11,8 +11,14 @@ Projeto relacionado a especialização em Arquitetura de Software na FIAP
 
 - [Github](https://github.com/teamG11/lanchonete)
 
+## Estruturação projeto
+![Diagrama](docs/resources/arquitetura-lanchonete.svg)
+
 ## Estruturação do banco de dados
 ![Diagrama](docs/resources/lanchonete.svg)
+
+## Estruturação da infra-estrutura
+![Diagrama](docs/resources/arquitetura-eks.svg)
 
 ## Quick-start
 Para inicializar o projeto em ambiente local siga os seguintes passos
