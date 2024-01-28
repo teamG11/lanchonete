@@ -4,8 +4,8 @@ services:
   app:
     build:
       context: .
-      dockerfile: tooling/docker/Dockerfile
-      target: dev
+      dockerfile: Dockerfile
+      target: development
     volumes:
       - ./:/usr/src/app
     environment:

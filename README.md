@@ -28,3 +28,15 @@ docker compose up --build --force-recreate
     - [collection](tooling/postman/lanchonete.postman_collection.json)
 4. Executar as requests via Postman seguindo a ordem numérica
 5. Acessar na url `localhost:8082` o SWAGGER com a documentação dos endpoints da API.
+
+## Build
+Para realizar o build e o push da [imagem de produção](https://hub.docker.com/repository/docker/leoeareis/lanchonete-app/general) siga os seguintes passos
+
+1. Executar `docker build --no-cache -f Dockerfile --target production -t leoeareis/lanchonete-app:<INCREMENTAR ULTIMA VERSAO DO DOCKER HUB> .`
+2. Executar `docker push leoeareis/lanchonete-app:<INCREMENTAR ULTIMA VERSAO DO DOCKER HUB>`
+3. Executar `docker build --no-cache -f Dockerfile --target production -t leoeareis/lanchonete-app:latest .`
+4. Executar `docker push leoeareis/lanchonete-app:latest`
+
+## Deployment
+
+- Seguir o passo a passo presente no em [/deployments/README.md](https://github.com/teamG11/lanchonete/tree/main/deployments) 

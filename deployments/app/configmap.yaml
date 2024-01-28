@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configmap
+  labels:
+    app: app
+  namespace: lanchonete
+data:
+  node_env: dev
+  port: '7000'

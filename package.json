@@ -16,7 +16,10 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "docker": "docker compose up --build --force-recreate",
-    "swagger": "npx swagger-jsdoc -d tooling/swagger/parameters.yaml -o tooling/swagger/swagger.json src/app.ts"
+    "swagger": "npx swagger-jsdoc -d tooling/swagger/parameters.yaml -o tooling/swagger/swagger.json src/app.ts",
+    "prisma:generate": "npx prisma generate",
+    "start:prod": "node build/server",
+    "start:migrate:prod": "prisma migrate deploy && npm run start:prod"
   },
   "repository": {
     "type": "git",
