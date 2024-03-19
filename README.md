@@ -18,8 +18,8 @@ Projeto relacionado a especialização em Arquitetura de Software na FIAP
 ![Diagrama](docs/resources/lanchonete.svg)
 
 ## Estruturação da infra-estrutura
-[Video explicativo arquitetura](https://youtu.be/46p-sr783jQ)
-![Diagrama](docs/resources/arquitetura-eks.svg)
+[Video explicativo arquitetura]()
+![Diagrama](docs/resources/arquitetura.png)
 
 ## Quick-start
 Para inicializar o projeto em ambiente local siga os seguintes passos
